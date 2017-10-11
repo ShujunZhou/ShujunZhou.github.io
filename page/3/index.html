@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="">
+<html class="theme-next muse use-motion" lang="����">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -85,6 +85,7 @@
 <meta property="og:url" content="http://yoursite.com/page/3/index.html">
 <meta property="og:site_name" content="It&#39;s my blog">
 <meta property="og:description" content="��������">
+<meta property="og:locale" content="����">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="It&#39;s my blog">
 <meta name="twitter:description" content="��������">
@@ -135,7 +136,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="">
+<body itemscope itemtype="http://schema.org/WebPage" lang="����">
 
   
   
@@ -184,7 +185,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -194,7 +195,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -231,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/04/18/原-java实现二叉树/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/15/原-Java多线程之CountDwonLatch/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shu.Zhou">
@@ -250,7 +251,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/04/18/原-java实现二叉树/" itemprop="url">[原]java实现二叉树</a></h1>
+                <a class="post-title-link" href="/2017/06/15/原-Java多线程之CountDwonLatch/" itemprop="url">[原]Java多线程之CountDwonLatch</a></h1>
         
 
         <div class="post-meta">
@@ -260,10 +261,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-04-18T21:21:46+08:00">
-                2016-04-18
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-15T21:07:19+08:00">
+                2017-06-15
               </time>
             
 
@@ -302,122 +303,614 @@
       
         
           
-            <p><span style="font-size:18px">用java实现实现二叉树</span></p>
-<p></p>
-<p><span style="font-size:18px">第一步：创建节点类</span></p>
-<pre name="code" class="java">&lt;span style=&quot;font-size:18px;&quot;&gt;class TreeNode {
-    private Object nodeValue;
-    private TreeNode left, right;
+            <pre><code>CountDwonLatch是一个非常实用的多线程控制工具类，这个工具类通常用来控制线程等待，它可以让某个线程等待直到其它线程执行任务结束，在开始执行。下面先看代码，根据代码分析程序，提出问题。
+`&lt;/pre&gt;
 
-    public TreeNode(){
-        this(null, null, null);
+&lt;pre class=&quot;prettyprint&quot;&gt;`&lt;span class=&quot;hljs-keyword&quot;&gt;import&lt;/span&gt; java.util.concurrent.CountDownLatch;
+&lt;span class=&quot;hljs-keyword&quot;&gt;import&lt;/span&gt; java.util.concurrent.ExecutorService;
+&lt;span class=&quot;hljs-keyword&quot;&gt;import&lt;/span&gt; java.util.concurrent.Executors;
+
+&lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-class&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;CountDownLatchDemo&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;Runnable&lt;/span&gt; {&lt;/span&gt;
+    &lt;span class=&quot;hljs-keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;static&lt;/span&gt; CountDownLatch lock = &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; CountDownLatch(&lt;span class=&quot;hljs-number&quot;&gt;100&lt;/span&gt;);
+    &lt;span class=&quot;hljs-keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;static&lt;/span&gt; CountDownLatchDemo task = &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; CountDownLatchDemo();
+
+    &lt;span class=&quot;hljs-annotation&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;run&lt;/span&gt;() {
+        &lt;span class=&quot;hljs-comment&quot;&gt;//模拟任务&lt;/span&gt;
+        &lt;span class=&quot;hljs-keyword&quot;&gt;try&lt;/span&gt; {
+            Thread.sleep(&lt;span class=&quot;hljs-number&quot;&gt;3&lt;/span&gt;);
+            System.out.println(&lt;span class=&quot;hljs-string&quot;&gt;&quot;线程&quot;&lt;/span&gt; + Thread.currentThread().getName());
+            lock.countDown();
+        } &lt;span class=&quot;hljs-keyword&quot;&gt;catch&lt;/span&gt; (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
-    public TreeNode(Object item){
-        nodeValue = item;
+    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;main&lt;/span&gt;(String[] args) &lt;span class=&quot;hljs-keyword&quot;&gt;throws&lt;/span&gt; InterruptedException {
+        ExecutorService service = Executors.newFixedThreadPool(&lt;span class=&quot;hljs-number&quot;&gt;5&lt;/span&gt;);
+        &lt;span class=&quot;hljs-keyword&quot;&gt;for&lt;/span&gt; (&lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt;  i = &lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt;; i &amp;lt; &lt;span class=&quot;hljs-number&quot;&gt;100&lt;/span&gt;; ++i) {
+            service.submit(task);
+        }
+        lock.await();
+        System.out.println(&lt;span class=&quot;hljs-string&quot;&gt;&quot;主线程执行了&quot;&lt;/span&gt;);
+        service.shutdown();
+    }
+}`&lt;/pre&gt;
+
+&lt;pre&gt;`代码第六行生成一个CountDwonLatch实例。计数量为100（有点类似与一组信号量）。在这段代码中这表示需要100个线程完成任务，等待在CountDwonLatch上的线程才能继续往下执行。最后的执行结果即主线程等待线程池中提交任务执行结束后，才会接着继续执行。那么就有一个疑问：当前情况是在拥有5个线程的线程池中提交了100个任务。即100个任务执行完成后，100个计数被消耗后，主线程才开始执行。这样看的话，CountDwonLatch中的计数数量就仅仅作为一个辅助的县城管理工具，每个线程执行一次，自身减一，只到计数量为0。如果是这样，那么使用单线程循环执行100次，同样可以达到相同的结果，下面编程验证：
+`&lt;/pre&gt;
+
+&lt;pre class=&quot;prettyprint&quot;&gt;`&lt;span class=&quot;hljs-keyword&quot;&gt;import&lt;/span&gt; java.util.concurrent.CountDownLatch;
+&lt;span class=&quot;hljs-keyword&quot;&gt;import&lt;/span&gt; java.util.concurrent.ExecutorService;
+&lt;span class=&quot;hljs-keyword&quot;&gt;import&lt;/span&gt; java.util.concurrent.Executors;
+
+&lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-class&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;CountDownLatchDemo2&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;Runnable&lt;/span&gt; {&lt;/span&gt;
+    &lt;span class=&quot;hljs-keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;static&lt;/span&gt; CountDownLatchDemo2 task = &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; CountDownLatchDemo2();
+    &lt;span class=&quot;hljs-keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;static&lt;/span&gt; CountDownLatch lock = &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; CountDownLatch(&lt;span class=&quot;hljs-number&quot;&gt;100&lt;/span&gt;);
+
+    &lt;span class=&quot;hljs-annotation&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;run&lt;/span&gt;() {
+        &lt;span class=&quot;hljs-keyword&quot;&gt;try&lt;/span&gt; {
+            &lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt; i = &lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt;;
+            &lt;span class=&quot;hljs-keyword&quot;&gt;while&lt;/span&gt; (i++ &amp;lt; &lt;span class=&quot;hljs-number&quot;&gt;100&lt;/span&gt;) {
+                Thread.sleep(&lt;span class=&quot;hljs-number&quot;&gt;3&lt;/span&gt;);
+                System.out.println(&lt;span class=&quot;hljs-string&quot;&gt;&quot;线程:&quot;&lt;/span&gt; + Thread.currentThread().getName());
+                lock.countDown();
+            }
+        } &lt;span class=&quot;hljs-keyword&quot;&gt;catch&lt;/span&gt; (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
-    public TreeNode(Object item, TreeNode left, TreeNode right){
-        nodeValue = item;
-        this.left = left;
-        this.right = right;
+    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;main&lt;/span&gt;(String[] args) &lt;span class=&quot;hljs-keyword&quot;&gt;throws&lt;/span&gt; InterruptedException {
+        ExecutorService service = Executors.newFixedThreadPool(&lt;span class=&quot;hljs-number&quot;&gt;1&lt;/span&gt;);
+        &lt;span class=&quot;hljs-keyword&quot;&gt;for&lt;/span&gt; (&lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt;  i = &lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt;; i &amp;lt; &lt;span class=&quot;hljs-number&quot;&gt;1&lt;/span&gt;; ++i) {
+            service.submit(task);
+        }
+
+        lock.await();
+        System.out.println(&lt;span class=&quot;hljs-string&quot;&gt;&quot;主线程执行了&quot;&lt;/span&gt;);
+        service.shutdown();
     }
-    //判断当前节点是否为叶子
-    public boolean isEmpty(){
-        if (this.left == null &amp;&amp; this.left == null){
-            return true;
-        }
-        return false;
-    }
-    //重写toString方法
-    public String toString(){
-        if (nodeValue == null){
-            return null;
-        }
+}`&lt;/pre&gt;
 
-        String result = &quot;(节点&quot; + nodeValue.toString();
+&lt;pre&gt;`测试情况为在单线程的线程池中，提交了单次任务，在线程任务中，循环100次。经过测试发现，主线程同样是在线程池中线程任务执行完后，继续执行。
 
-        if (left != null){
-            result += &quot;左节点&quot; + left.toString();
-        }
-        if (right != null){
-            result += &quot;右节点&quot; + right.toString();
-        }
+经过上面的测试，我们看以看出CountDwonLatch本身是一个不与线程耦合的计数器，每执行一次countDown()方法，计数器数量减一。直到减为0为止，等待在CountDwonLatch才会有执行机会。这样我们可以大胆的猜测，如果CountDwonLatch本身的计数器一旦被消耗完（即为0时），等待其上面的线程即获得了执行权，不在被阻塞。（经测试，确实是这样）。它本身只充当一个线程辅助工具类。
 
-        result += &quot;)&quot;;
-        return result;
+        &lt;div&gt;
+            作者：StruggleShu 发表于2017/6/15 21:07:19 [原文链接](http://blog.csdn.net/struggleshu/article/details/73302580)
+        &lt;/div&gt;
+        &lt;div&gt;
+        阅读：239 评论：0 [查看评论](http://blog.csdn.net/struggleshu/article/details/73302580#comments)
+        &lt;/div&gt;
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/14/原-枚举单例模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu.Zhou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="It's my blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/14/原-枚举单例模式/" itemprop="url">[原]枚举单例模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-14T21:12:24+08:00">
+                2017-06-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <pre><code>Java中的枚举类非常强大的。之前看过单例的许多实现，对于枚举的单例略有了解，但理解不够深刻，最近结合实例研究了一下，感觉枚举是很强大且非常好用。
+
+首先看一个最简单的枚举单例模式:
+`&lt;/pre&gt;
+
+&lt;pre class=&quot;prettyprint&quot;&gt;`&lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;enum&lt;/span&gt;  TestEnum {
+    TEST_ENUM;
+}`&lt;/pre&gt;
+
+&lt;pre&gt;`其中TEST_ENUM，即为TestEnum类的唯一实例。这样写可能一眼看去，没什么意义。也不是很好理解。下面以生成一个单例的CGLib动态代理类作为场景进行总结。先放代码：
+`&lt;/pre&gt;
+
+## 代理类
+
+&lt;pre class=&quot;prettyprint&quot;&gt;`import java.lang.reflect.&lt;span class=&quot;hljs-keyword&quot;&gt;Method&lt;/span&gt;;
+
+&lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;enum&lt;/span&gt; CGLibProxyEnum &lt;span class=&quot;hljs-keyword&quot;&gt;implements&lt;/span&gt; MethodInterceptor &lt;span class=&quot;hljs-comment&quot;&gt;{
+    CG_LIB_PROXY_ENUM;
+
+    public &amp;lt;T&amp;gt; T getProxy(Class&amp;lt;T&amp;gt; cls) {
+        return (T)Enhancer.create(cls, this);
+    }&lt;/span&gt;
+
+    @&lt;span class=&quot;hljs-keyword&quot;&gt;Override&lt;/span&gt;
+    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; Object intercept(Object o, &lt;span class=&quot;hljs-function&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;Method&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;method&lt;/span&gt;, &lt;span class=&quot;hljs-title&quot;&gt;Object&lt;/span&gt;[] &lt;span class=&quot;hljs-title&quot;&gt;objects&lt;/span&gt;, &lt;span class=&quot;hljs-title&quot;&gt;MethodProxy&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;methodProxy&lt;/span&gt;) &lt;span class=&quot;hljs-title&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;Throwable&lt;/span&gt; &lt;span class=&quot;hljs-comment&quot;&gt;{
+        return methodProxy.invokeSuper(o, objects);
+    }&lt;/span&gt;
+}&lt;/span&gt;`&lt;/pre&gt;
+
+## 测试类
+
+&lt;pre class=&quot;prettyprint&quot;&gt;`class Hello {
+    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;sayHello&lt;/span&gt;() {
+        System.&lt;span class=&quot;hljs-keyword&quot;&gt;out&lt;/span&gt;.println(&lt;span class=&quot;hljs-string&quot;&gt;&quot;Hello, new Boys&quot;&lt;/span&gt;);
     }
 }
-
-//实现二叉树
-class BinaryTree {
-&#160;&#160; &#160;protected TreeNode root;//定义一个节点对象成员
-&#160;&#160; &#160;
-&#160;&#160; &#160;public BinaryTree(){
-&#160;&#160; &#160;&#160;&#160; &#160;root = null;
-&#160;&#160; &#160;}
-&#160;&#160; &#160;
-&#160;&#160; &#160;public BinaryTree(TreeNode root){
-&#160;&#160; &#160;&#160;&#160; &#160;this.root = root;
-&#160;&#160; &#160;}
-&#160;&#160; &#160;
-&#160;&#160; &#160;public boolean isEmpty(){
-&#160;&#160; &#160;&#160;&#160; &#160;return this.root == null;
-&#160;&#160; &#160;}
-&#160;&#160; &#160;
-&#160;&#160; &#160;public TreeNode getRoot(){
-&#160;&#160; &#160;&#160;&#160; &#160;return root;
-&#160;&#160; &#160;}
-&#160;&#160; &#160;
-&#160;&#160; &#160;public String toString(){
-&#160;&#160; &#160;&#160;&#160; &#160;return root.toString();
-&#160;&#160; &#160;}
+&lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;class&lt;/span&gt; Test {
+    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;main&lt;/span&gt;(String[] args) {
+        Hello helloProxy = CGLibProxyEnum.CG_LIB_PROXY_ENUM.getProxy(Hello.class);
+        helloProxy.sayHello();
+   }
 }
+`&lt;/pre&gt;
 
-实现如图所示的二叉树
-&lt;img src=&quot;http://img.blog.csdn.net/20160418211703770?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center&quot; alt=&quot;&quot; height=&quot;259&quot; width=&quot;572&quot; /&gt;
-&lt;/span&gt;</pre>
+&lt;pre&gt;`测试结果打印：Hello, new Boys
 
-<p><span style="font-size:18px">//构造二叉树</span></p>
-<pre name="code" class="java">&lt;span style=&quot;font-size:18px;&quot;&gt;public class BulidBinaryTree {
-    public static BinaryTree creat(){
-        TreeNode a, b, c, d, e, f, g;
-        //创建叶子
-        f = new TreeNode(&quot;F&quot;);
-        g = new TreeNode(&quot;G&quot;);
-        d = new TreeNode(&quot;D&quot;);
-        c = new TreeNode(&quot;C&quot;);
-        //创建根节点
-        e = new TreeNode(&quot;E&quot;, f, g);
-        b = new TreeNode(&quot;B&quot;, d, e);
-        a = new TreeNode(&quot;A&quot;, b, c);
+上面的CGLibProxyEnum枚举类实现了MethodInterceptor接口，并重写了其中的intercept方法。在其内部创建了唯一的实例CG_LIB_PROXY_ENUM；这是由其默认的私有的构造器创建的。
+这里可以看出，枚举单例模式非常简单，易于实现，且类型安全。而且有着和普通类一样的基本功能。并且枚举类默认final修饰，不允许被继承。
 
-        return new BinaryTree(a);
-    } 
-}
-&lt;/span&gt;</pre><span style="font-size:18px">
+        &lt;div&gt;
+            作者：StruggleShu 发表于2017/6/14 21:12:24 [原文链接](http://blog.csdn.net/struggleshu/article/details/73252230)
+        &lt;/div&gt;
+        &lt;div&gt;
+        阅读：219 评论：0 [查看评论](http://blog.csdn.net/struggleshu/article/details/73252230#comments)
+        &lt;/div&gt;
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
 
-</span>
+    
 
-<span style="font-size:18px">//测试并输出</span>
+    
 
-<pre name="code" class="java">&lt;span style=&quot;font-size:18px;&quot;&gt;public class TestDemo {
-    public static void main(String[] args) {
-        BinaryTree binaryTree = BulidBinaryTree.creat();
-        System.out.println(binaryTree);
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/13/原-Java中的枚举/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu.Zhou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="It's my blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/13/原-Java中的枚举/" itemprop="url">[原]Java中的枚举</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-13T18:08:21+08:00">
+                2017-06-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <pre><code>虽然知道在Java中存在枚举类型，但是却一直很少用。最近接触了一些，特加以总结。
+`&lt;/pre&gt;
+
+# 枚举类型的定义
+
+&lt;pre&gt;`枚举类型是指由一组固定的常量组成合法值的类型。比如我们常用的：
+    public static final static ERROR = -1;
+    public static final static SUCCESS = 1;
+根据枚举类型的定义，其实这也属于一种枚举，一种int枚举模式。这种模式存在类型安全性问题。如果你错把ERROR传入想要SUCCESS的方法中去，编译器也不会报错。
+`&lt;/pre&gt;
+
+# Java中的枚举
+
+下面是一个简单的JAVA枚举类。
+
+&lt;pre class=&quot;prettyprint&quot;&gt;`&lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;enum&lt;/span&gt; PostLogisticsInfoEnum {
+    SUCCESS(&lt;span class=&quot;hljs-number&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;hljs-string&quot;&gt;&quot;发布成功&quot;&lt;/span&gt;),
+    ERROR(-&lt;span class=&quot;hljs-number&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;hljs-string&quot;&gt;&quot;发布失败&quot;&lt;/span&gt;),
+    TEST(&lt;span class=&quot;hljs-string&quot;&gt;&quot;测试&quot;&lt;/span&gt;);
+
+    &lt;span class=&quot;hljs-comment&quot;&gt;//状态&lt;/span&gt;
+    &lt;span class=&quot;hljs-keyword&quot;&gt;private&lt;/span&gt; Integer state;
+    &lt;span class=&quot;hljs-comment&quot;&gt;//信息&lt;/span&gt;
+    &lt;span class=&quot;hljs-keyword&quot;&gt;private&lt;/span&gt; String info;
+
+    PostLogisticsInfoEnum(Integer state, String info) {
+        &lt;span class=&quot;hljs-keyword&quot;&gt;this&lt;/span&gt;(info);
+        &lt;span class=&quot;hljs-keyword&quot;&gt;this&lt;/span&gt;.state = state;
     }
-}
-结果如下
-&lt;/span&gt;</pre>
 
-<p><span style="font-size:18px"><img src="http://img.blog.csdn.net/20160418212133946?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></span></p>
-<p></p>
-<p><span style="font-size:18px"></span></p>
+    PostLogisticsInfoEnum(String info) {
+        &lt;span class=&quot;hljs-keyword&quot;&gt;this&lt;/span&gt;.info = info;
+    }
+
+    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; Integer &lt;span class=&quot;hljs-title&quot;&gt;getState&lt;/span&gt;() {
+        &lt;span class=&quot;hljs-keyword&quot;&gt;return&lt;/span&gt; state;
+    }
+
+    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; String &lt;span class=&quot;hljs-title&quot;&gt;getInfo&lt;/span&gt;() {
+        &lt;span class=&quot;hljs-keyword&quot;&gt;return&lt;/span&gt; info;
+    }
+
+    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;static&lt;/span&gt; PostLogisticsInfoEnum &lt;span class=&quot;hljs-title&quot;&gt;stateOf&lt;/span&gt;(&lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt; index) {
+        &lt;span class=&quot;hljs-keyword&quot;&gt;for&lt;/span&gt; (PostLogisticsInfoEnum infoEnum : values()) {
+            &lt;span class=&quot;hljs-keyword&quot;&gt;if&lt;/span&gt; (infoEnum.getState() == index) {
+                &lt;span class=&quot;hljs-keyword&quot;&gt;return&lt;/span&gt; infoEnum;
+            }
+        }
+        &lt;span class=&quot;hljs-keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;null&lt;/span&gt;;
+    }
+}`&lt;/pre&gt;
+
+# java枚举类特点
+
+&lt;pre&gt;` 1、构造器默认使用private修饰符修饰（其它修饰符不被允许），这样可以看出枚举类都是单例的，即不允许外部类构造枚举对象。但是可以在枚举类内部定义多个枚举实例。
+ 2、枚举类构造器和一般类一样，同样允许构造器的重载
+ 3、 每个枚举类内部存在一个静态的values()方法，它返回一个包含全部枚举值的数组
+`&lt;/pre&gt;
+
+# java中枚举的优点：
+
+&lt;pre&gt;`1、Java枚举通过公有的静态final域为每个枚举常量导出实例的类。因为没有可以访问的构造器，枚举类型是真正的final。
+2、枚举提供了编译时的类型安全。
+3、允许添加任意的方法和域，并实现任意的接口。提供了所有Object方法的高级实现实现了Comparable和Serializable接口，并针对枚举类型的可任意改变性设计了序列化方式。
+
+        &lt;div&gt;
+            作者：StruggleShu 发表于2017/6/13 18:08:21 [原文链接](http://blog.csdn.net/struggleshu/article/details/73176217)
+        &lt;/div&gt;
+        &lt;div&gt;
+        阅读：107 评论：0 [查看评论](http://blog.csdn.net/struggleshu/article/details/73176217#comments)
+        &lt;/div&gt;
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/12/原-HTTP缓存字段总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu.Zhou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="It's my blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/12/原-HTTP缓存字段总结/" itemprop="url">[原]HTTP缓存字段总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-12T16:01:36+08:00">
+                2017-06-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <pre><code>    HTTP控制缓存的字段主要包括Cache-Control/Pragma,Expires,Last-Modified/Etag。
+`&lt;/pre&gt;
+
+## 1、Cache-Control/Pragma
+
+&lt;pre&gt;`    这个HTTP Head字段用于指定所有缓存机制在整个请求/响应链中必须服从的指令，如果知道该页面是否为缓存，不仅可以控制浏览器，还可以控制和HTTP相关的缓存或代理服务器。它可以指定下列可选值：
+    1、Public：所有内容都将被缓存，在响应头中设置
+    2、Private：内容只缓存在私有缓存中，在响应头中设置
+    3、no-cache：所有内容都不会被缓存，在请求头和响应头中设置
+    4、no-store：所有内容都不会被缓存在缓存或Internet临时文件中，在响应头中设置
+    5、must-revalidation/proxy-revalidation：如果缓存的内容失效，请求必须发送到服务  器/代理以进行重新验证，在请求头中设置
+    6、max-age=xxx：缓存的内容将在xxx秒后失效，这个选项只在HTTP1.1中可用，和Last-Modified一起使用时优先级较高，在响应头中设置
+
+    Cache-Control请求字段可以被个浏览器很好的支持，而且优先级也比较高，它和其他一些请求字段（如Expires）同时使用时，Cache-Control会覆盖其他字段
+
+    Pragma字段的作用和Cache-Control类似，最常用的Pragma:no-cache，他和Cache-cache的作用是一致的。
+`&lt;/pre&gt;
+
+## 2、Expires
+
+&lt;pre&gt;`    Expires通常的使用格式是Expires:Sat,25 Feb 2012 12:22:17 GMT,后面跟着一个日期和时间，超过这个时间后，缓存的内容将失效，浏览器在发送请求之前检查这个页面的字段，看该页面是否已经过期了，如果过期，就向服务端重新发起请求。
+`&lt;/pre&gt;
+
+## 3、Last-Modified/Etag
+
+&lt;pre&gt;`    Last-Modified字段一般用于表示一个服务器上的资源的最后修改时间，资源可以是静态资源，也可以是动态内容，通过这个最后修改时间可以判断当前请求的资源是否是最新的。
+    一般服务端会在响应头中返回一个Last-Modified字段，告诉浏览器这个页面的最后修改时间，如Last-Modified:Sat, 25 Feb 2012 12:55:04 GMT,浏览器再次请求时在请求头中增加If-Modified-Since:Sat, 25 Feb 2012 12:55:04 GMT字段，询问当前缓存的页面是否是最新。如果是最新的就返回304，告诉浏览器是最新的，服务器也不会传输最新的数据
+    Etag字段的作用和LastModified字段作用相同，这个字段的作用是让服务端给每个页面分配一个唯一的编号，然后通过这个编号来区分当前页面是否最新。这种方式比较灵活，但是当后端的服务器有多台时比较难以处理。
+下图为一个实例
+`&lt;/pre&gt;
+
+![HTTP缓存字段](http://img.blog.csdn.net/20170612160230252?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU3RydWdnbGVTaHU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
+&lt;pre&gt;`可以明显的看到上面介绍的几个字段。
+    1、Cache-Control:max-age=2592000：缓存内容将在2592000秒后失效（30天）。
+    2、ETag:&quot;58d48c15-f7b&quot;：页面编号
+    3、Expires:Wed, 12 Jul 2017 05:42:41 GMT：缓存内容将在2017年7月12日后过时。
+    4、Last-Modified:Fri, 24 Mar 2017 03:01:41 GMT：服务端资源最后修改时间。
+</code></pre><p><em><em>          但是由于Cache-Control字段的存在，会覆盖其他字段。</em></em></p>
 <pre><code>&lt;div&gt;
-    作者：StruggleShu 发表于2016/4/18 21:21:46 [原文链接](http://blog.csdn.net/struggleshu/article/details/51182936)
+    作者：StruggleShu 发表于2017/6/12 16:01:36 [原文链接](http://blog.csdn.net/struggleshu/article/details/73113459)
 &lt;/div&gt;
 &lt;div&gt;
-阅读：485 评论：0 [查看评论](http://blog.csdn.net/struggleshu/article/details/51182936#comments)
+阅读：181 评论：0 [查看评论](http://blog.csdn.net/struggleshu/article/details/73113459#comments)
 &lt;/div&gt;
 </code></pre>
           
@@ -467,7 +960,7 @@ class BinaryTree {
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/04/14/原-最大子序和问题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/11/原-Wireshark抓包分析TCP的三次握手/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shu.Zhou">
@@ -486,7 +979,7 @@ class BinaryTree {
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/04/14/原-最大子序和问题/" itemprop="url">[原]最大子序和问题</a></h1>
+                <a class="post-title-link" href="/2017/06/11/原-Wireshark抓包分析TCP的三次握手/" itemprop="url">[原]Wireshark抓包分析TCP的三次握手</a></h1>
         
 
         <div class="post-meta">
@@ -496,10 +989,10 @@ class BinaryTree {
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-04-14T13:32:56+08:00">
-                2016-04-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-11T13:54:54+08:00">
+                2017-06-11
               </time>
             
 
@@ -538,92 +1031,58 @@ class BinaryTree {
       
         
           
-            <p><span style="font-size:18px">最大子序和问题：给定整数A1，A2，…..An（可能有负数)，求A1 &#43;A2&#43;A3&#43;……&#43;An的最大&#20540;（规定：如果所有整数均为负数，则最大子序和为0）</span></p>
-<p><span style="font-size:18px">例：</span></p>
-<p><span style="font-size:18px">输入-2， 11， -4, 13， -5， -2时，答案为20（从A2到A4）。</span></p>
-<p><span style="font-size:18px">下面给出四种不同复杂度的算法，进行比较分析</span></p>
-<p><span style="font-size:18px">O（n3）的算法（穷举所有可能）</span><pre name="code" class="java">&lt;span style=&quot;font-size:18px;&quot;&gt;public static int maxSubsequenceSum(int[] nums) {<br>    int ThisSum = 0;<br>    int MaxSum = 0;</pre></p>
-<pre><code>for (int i = 0; i &amp;lt; nums.length; i++) {
-   for (int j = i; j &amp;lt; nums.length; j++) {
-       ThisSum = 0;
-       for (int k = i; k &amp;lt; j; k++) {
-            ThisSum += nums[k];
-       }
-         if (ThisSum &amp;gt; MaxSum)
-             MaxSum = ThisSum;
-          }
-     }
-    return MaxSum;
-  }
-</code></pre><p>}&lt;/span&gt;<span style="font-size:18px"></span></p>
-<p><pre name="code" class="java">&lt;span style=&quot;font-size:18px;&quot;&gt;O（n2）的算法（去掉一次for循环）<br>&lt;/span&gt;&lt;pre name=&quot;code&quot; class=&quot;java&quot;&gt;&lt;span style=&quot;font-size:18px;&quot;&gt;public static int maxSubsequenceSum(int[] nums) {<br>    int ThisSum = 0;<br>        int MaxSum = 0;</pre></p>
-<pre><code>for (int i = 0; i &amp;lt; nums.length; i++) {
-    ThisSum = 0;
-     for (int j = i; j &amp;lt; nums.length; j++) {
-        ThisSum += nums[j];
-         if (ThisSum &amp;gt; MaxSum)
-               MaxSum = ThisSum;
-          }
-     }
-      return MaxSum;
-  }
-</code></pre><p>}&lt;/span&gt;<span style="font-size:18px"></span></p>
-<p>O（nlogn）的算法（利用分治的策略，代码比较复杂）</p>
-<p></p>
-<p><pre></pre></p>
-<p><pre name="code" class="java">&lt;span style=&quot;font-size:18px;&quot;&gt;public static int maxSubSum(int[] nums, int Left, int Right) {<br>    int MaxLeftSum, MaxRightSum;</pre></p>
-<pre><code>if (Left == Right){
-    if (nums[0] &amp;gt; 0)
-        return nums[0];
-    else
-        return 0;
-     }
+            <pre><code>   今天学习了Wireshark工具，对于抓包有了极大的兴趣；特意通过抓包来加深一下TCP三次握手的过程，同时做以记录。
+`&lt;/pre&gt;
 
- int Center = (Left + Right) / 2;
-    MaxLeftSum = maxSubSum(nums, Left, Center);
-MaxRightSum = maxSubSum(nums, Center + 1, Right);
+### TCP报文段结构
 
-int MaxLeftBorderSum = 0, LeftBorderSum = 0;
- for (int i = Center; i &amp;gt;= Left; i--) {
-     LeftBorderSum += nums[i];
-    if (LeftBorderSum &amp;gt; MaxLeftBorderSum)
-         MaxLeftBorderSum = LeftBorderSum;
-     }
+![这里写图片描述](http://img.blog.csdn.net/20170611133448163?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU3RydWdnbGVTaHU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
-     int MaxRightBorderSum = 0, RightBorderSum = 0;
-    for (int i = Center + 1; i &amp;lt; Right; i++) {
-        RightBorderSum += nums[i];
-         if (RightBorderSum &amp;gt; MaxRightBorderSum)
-             MaxRightBorderSum = RightBorderSum;
-    }
+### 过滤规则介绍
 
- int max = MaxLeftSum;
-max = (max &amp;lt; MaxLeftSum ? MaxLeftSum : max);
-max = (max &amp;lt; (MaxLeftBorderSum + MaxRightBorderSum) ? (MaxLeftBorderSum + MaxRightBorderSum) : max);
-return max;
-</code></pre><p>}&lt;/span&gt;<span style="font-size:18px"></span></p>
-<p>O(n)的算法（最为巧妙地算法）</p>
-<p></p>
-<p><pre name="code" class="java">&lt;span style=&quot;font-size:18px;&quot;&gt;public static int maxSum(int[] nums) {<br>    int thisSum = 0;<br>    int maxSum = 0;</pre></p>
-<pre><code>for (int i = 0; i &amp;lt;nums.length; i++){
-    thisSum += nums[i];
+&lt;pre&gt;`   网络中包含着许多的数据报文，但是许多的都不是我们需要的。网上给的大多数规则不够具体，通过查阅资料，用下面的过滤规则可以更快的抓取TCP三次握手的包.
+`&lt;/pre&gt;
 
-    if (maxSum &amp;lt; thisSum){
-        maxSum = thisSum;
-    }
-    if (thisSum &amp;lt; 0){
-        thisSum = 0;
-    }
-}        
-return maxSum;
-</code></pre><p>}<br>&lt;/span&gt;<span style="font-size:18px"></span></p>
-<p></p>
-<pre><code>&lt;div&gt;
-    作者：StruggleShu 发表于2016/4/14 13:32:56 [原文链接](http://blog.csdn.net/struggleshu/article/details/51150894)
-&lt;/div&gt;
-&lt;div&gt;
-阅读：726 评论：0 [查看评论](http://blog.csdn.net/struggleshu/article/details/51150894#comments)
-&lt;/div&gt;
+**tcp.flags.syn == 0x02 || tcp.flags.ack == 0x02 &amp;amp;&amp;amp; tcp.flags.fin != 0x02** 
+
+![这里写图片描述](http://img.blog.csdn.net/20170611133518264?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU3RydWdnbGVTaHU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
+### TCP的三次握手文字表述
+
+####第一步：客户端的TCP首先向服务端的TCP发送一个特殊的TCP报文段。报文段中不包含应用层数据。但是在报文段的首部中的标志位SYN被值为1。这个特殊的报文段通常被称为SYN报文段。同时客户会随机选择一个初始序号(client_isn)，并将该序号置于SYN报文段的序号字段中。 
+
+ ####第二步：包含TCP SYN报文段的IP数据报到达服务器主机，服务器会从该数据报中提取TCP SYN报文段，为该TCP连接分配TCP缓存和变量，并向该客户端TCP发送允许连接的报文段。首先，SYN字段被置1.其次该TCP报文段首部的确认号字段被置为client_isn+1;最后，服务器选择自己的初始序号(server_isn)，并放入到该TCP的首部的序号字段中，该允许连接的报文段通常被称为SYNACK报文段。 
+
+ ####第三步：在接收到SYNACK报文段后，客户端也要给该TCP连接分配缓存和变量。客户主机想服务端发送另一个报文段；这最后一个报文段对服务器的允许连接的报文段进行了确认。客户端将值server_isn+1放入到TCP首部的确认号字段。因为连接已经建立了，所以SYN比特被置为0。
+
+### TCP三次握手抓包结果
+
+![TCP三次握手抓包结果](http://img.blog.csdn.net/20170611133601077?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU3RydWdnbGVTaHU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast) 
+
+![三次握手流图](http://img.blog.csdn.net/20170611133615586?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU3RydWdnbGVTaHU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
+### 三次握手每个包中的具体数据
+
+#### 第一次握手数据报，可以看出SYN被置1
+
+![第一次握手](http://img.blog.csdn.net/20170611134004707?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU3RydWdnbGVTaHU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
+#### 第二次握手数据报，可以看出SYN被置1，ACK被置1，确认号字段被置1
+
+![第二次握手](http://img.blog.csdn.net/20170611134019364?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU3RydWdnbGVTaHU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
+#### 第三次握手数据报，SYN置0，ACK置1.序号和确认号被置1
+
+![第三次握手](http://img.blog.csdn.net/20170611134035697?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU3RydWdnbGVTaHU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
+&lt;pre&gt;`   通过Wireshark工具抓包，对TCP的三次握手过程有了直观化的理解。
+
+        &lt;div&gt;
+            作者：StruggleShu 发表于2017/6/11 13:54:54 [原文链接](http://blog.csdn.net/struggleshu/article/details/73026822)
+        &lt;/div&gt;
+        &lt;div&gt;
+        阅读：250 评论：0 [查看评论](http://blog.csdn.net/struggleshu/article/details/73026822#comments)
+        &lt;/div&gt;
 </code></pre>
           
         
@@ -663,7 +1122,7 @@ return maxSum;
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -710,7 +1169,7 @@ return maxSum;
                 <a href="/archives/">
               
                   <span class="site-state-item-count">22</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
             
@@ -762,7 +1221,7 @@ return maxSum;
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 

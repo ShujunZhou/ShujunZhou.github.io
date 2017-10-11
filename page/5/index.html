@@ -79,17 +79,16 @@
 
 
 
-<meta name="description" content="最大子序和问题：给定整数A1，A2，…..An（可能有负数)，求A1 &amp;#43;A2&amp;#43;A3&amp;#43;……&amp;#43;An的最大&amp;#20540;（规定：如果所有整数均为负数，则最大子序和为0） 例： 输入-2， 11， -4, 13， -5， -2时，答案为20（从A2到A4）。 下面给出四种不同复杂度的算法，进行比较分析 O（n3）的算法（穷举所有可能）&amp;lt;span style=&amp;quo">
-<meta property="og:type" content="article">
-<meta property="og:title" content="[原]最大子序和问题">
-<meta property="og:url" content="http://yoursite.com/2016/04/14/原-最大子序和问题/index.html">
+<meta name="description" content="��������">
+<meta property="og:type" content="website">
+<meta property="og:title" content="It&#39;s my blog">
+<meta property="og:url" content="http://yoursite.com/page/5/index.html">
 <meta property="og:site_name" content="It&#39;s my blog">
-<meta property="og:description" content="最大子序和问题：给定整数A1，A2，…..An（可能有负数)，求A1 &amp;#43;A2&amp;#43;A3&amp;#43;……&amp;#43;An的最大&amp;#20540;（规定：如果所有整数均为负数，则最大子序和为0） 例： 输入-2， 11， -4, 13， -5， -2时，答案为20（从A2到A4）。 下面给出四种不同复杂度的算法，进行比较分析 O（n3）的算法（穷举所有可能）&amp;lt;span style=&amp;quo">
+<meta property="og:description" content="��������">
 <meta property="og:locale" content="����">
-<meta property="og:updated_time" content="2017-10-11T13:25:03.419Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[原]最大子序和问题">
-<meta name="twitter:description" content="最大子序和问题：给定整数A1，A2，…..An（可能有负数)，求A1 &amp;#43;A2&amp;#43;A3&amp;#43;……&amp;#43;An的最大&amp;#20540;（规定：如果所有整数均为负数，则最大子序和为0） 例： 输入-2， 11， -4, 13， -5， -2时，答案为20（从A2到A4）。 下面给出四种不同复杂度的算法，进行比较分析 O（n3）的算法（穷举所有可能）&amp;lt;span style=&amp;quo">
+<meta name="twitter:title" content="It&#39;s my blog">
+<meta name="twitter:description" content="��������">
 
 
 
@@ -119,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/04/14/原-最大子序和问题/"/>
+  <link rel="canonical" href="http://yoursite.com/page/5/"/>
 
 
 
 
 
-  <title>[原]最大子序和问题 | It's my blog</title>
+  <title>It's my blog</title>
   
 
 
@@ -144,7 +143,8 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -217,9 +217,245 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/04/18/原-java实现二叉树/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu.Zhou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="It's my blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/04/18/原-java实现二叉树/" itemprop="url">[原]java实现二叉树</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-04-18T21:21:46+08:00">
+                2016-04-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><span style="font-size:18px">用java实现实现二叉树</span></p>
+<p></p>
+<p><span style="font-size:18px">第一步：创建节点类</span></p>
+<pre name="code" class="java">&lt;span style=&quot;font-size:18px;&quot;&gt;class TreeNode {
+    private Object nodeValue;
+    private TreeNode left, right;
+
+    public TreeNode(){
+        this(null, null, null);
+    }
+
+    public TreeNode(Object item){
+        nodeValue = item;
+    }
+
+    public TreeNode(Object item, TreeNode left, TreeNode right){
+        nodeValue = item;
+        this.left = left;
+        this.right = right;
+    }
+    //判断当前节点是否为叶子
+    public boolean isEmpty(){
+        if (this.left == null &amp;&amp; this.left == null){
+            return true;
+        }
+        return false;
+    }
+    //重写toString方法
+    public String toString(){
+        if (nodeValue == null){
+            return null;
+        }
+
+        String result = &quot;(节点&quot; + nodeValue.toString();
+
+        if (left != null){
+            result += &quot;左节点&quot; + left.toString();
+        }
+        if (right != null){
+            result += &quot;右节点&quot; + right.toString();
+        }
+
+        result += &quot;)&quot;;
+        return result;
+    }
+}
+
+//实现二叉树
+class BinaryTree {
+&#160;&#160; &#160;protected TreeNode root;//定义一个节点对象成员
+&#160;&#160; &#160;
+&#160;&#160; &#160;public BinaryTree(){
+&#160;&#160; &#160;&#160;&#160; &#160;root = null;
+&#160;&#160; &#160;}
+&#160;&#160; &#160;
+&#160;&#160; &#160;public BinaryTree(TreeNode root){
+&#160;&#160; &#160;&#160;&#160; &#160;this.root = root;
+&#160;&#160; &#160;}
+&#160;&#160; &#160;
+&#160;&#160; &#160;public boolean isEmpty(){
+&#160;&#160; &#160;&#160;&#160; &#160;return this.root == null;
+&#160;&#160; &#160;}
+&#160;&#160; &#160;
+&#160;&#160; &#160;public TreeNode getRoot(){
+&#160;&#160; &#160;&#160;&#160; &#160;return root;
+&#160;&#160; &#160;}
+&#160;&#160; &#160;
+&#160;&#160; &#160;public String toString(){
+&#160;&#160; &#160;&#160;&#160; &#160;return root.toString();
+&#160;&#160; &#160;}
+}
+
+实现如图所示的二叉树
+&lt;img src=&quot;http://img.blog.csdn.net/20160418211703770?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center&quot; alt=&quot;&quot; height=&quot;259&quot; width=&quot;572&quot; /&gt;
+&lt;/span&gt;</pre>
+
+<p><span style="font-size:18px">//构造二叉树</span></p>
+<pre name="code" class="java">&lt;span style=&quot;font-size:18px;&quot;&gt;public class BulidBinaryTree {
+    public static BinaryTree creat(){
+        TreeNode a, b, c, d, e, f, g;
+        //创建叶子
+        f = new TreeNode(&quot;F&quot;);
+        g = new TreeNode(&quot;G&quot;);
+        d = new TreeNode(&quot;D&quot;);
+        c = new TreeNode(&quot;C&quot;);
+        //创建根节点
+        e = new TreeNode(&quot;E&quot;, f, g);
+        b = new TreeNode(&quot;B&quot;, d, e);
+        a = new TreeNode(&quot;A&quot;, b, c);
+
+        return new BinaryTree(a);
+    } 
+}
+&lt;/span&gt;</pre><span style="font-size:18px">
+
+</span>
+
+<span style="font-size:18px">//测试并输出</span>
+
+<pre name="code" class="java">&lt;span style=&quot;font-size:18px;&quot;&gt;public class TestDemo {
+    public static void main(String[] args) {
+        BinaryTree binaryTree = BulidBinaryTree.creat();
+        System.out.println(binaryTree);
+    }
+}
+结果如下
+&lt;/span&gt;</pre>
+
+<p><span style="font-size:18px"><img src="http://img.blog.csdn.net/20160418212133946?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></span></p>
+<p></p>
+<p><span style="font-size:18px"></span></p>
+<pre><code>&lt;div&gt;
+    作者：StruggleShu 发表于2016/4/18 21:21:46 [原文链接](http://blog.csdn.net/struggleshu/article/details/51182936)
+&lt;/div&gt;
+&lt;div&gt;
+阅读：485 评论：0 [查看评论](http://blog.csdn.net/struggleshu/article/details/51182936#comments)
+&lt;/div&gt;
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
 
   
 
@@ -249,7 +485,9 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">[原]最大子序和问题</h1>
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/04/14/原-最大子序和问题/" itemprop="url">[原]最大子序和问题</a></h1>
         
 
         <div class="post-meta">
@@ -299,7 +537,9 @@
       
 
       
-        <p><span style="font-size:18px">最大子序和问题：给定整数A1，A2，…..An（可能有负数)，求A1 &#43;A2&#43;A3&#43;……&#43;An的最大&#20540;（规定：如果所有整数均为负数，则最大子序和为0）</span></p>
+        
+          
+            <p><span style="font-size:18px">最大子序和问题：给定整数A1，A2，…..An（可能有负数)，求A1 &#43;A2&#43;A3&#43;……&#43;An的最大&#20540;（规定：如果所有整数均为负数，则最大子序和为0）</span></p>
 <p><span style="font-size:18px">例：</span></p>
 <p><span style="font-size:18px">输入-2， 11， -4, 13， -5， -2时，答案为20（从A2到A4）。</span></p>
 <p><span style="font-size:18px">下面给出四种不同复杂度的算法，进行比较分析</span></p>
@@ -386,6 +626,8 @@ return maxSum;
 阅读：726 评论：0 [查看评论](http://blog.csdn.net/struggleshu/article/details/51150894#comments)
 &lt;/div&gt;
 </code></pre>
+          
+        
       
     </div>
     
@@ -402,28 +644,12 @@ return maxSum;
       
 
       
-      
+
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/04/18/原-java实现二叉树/" rel="prev" title="[原]java实现二叉树">
-                [原]java实现二叉树 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
       
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -433,11 +659,14 @@ return maxSum;
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+  </nav>
+
 
 
           </div>
@@ -445,10 +674,6 @@ return maxSum;
 
 
           
-
-  
-
-
 
         </div>
         
@@ -635,10 +860,6 @@ return maxSum;
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
-
-
 
   
 
