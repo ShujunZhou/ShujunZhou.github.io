@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="注解是那些插入到源代码中用于某种工具处理的标签。这些标签可以在源代码层次上进行操作，也可以在处理编译器将它们纳入到注解类文件中。在Java中，注解是当一个修饰符来被使用的，它被置于被注解项之前，中间没有分号。 `&amp;lt;/pre&amp;gt;  ## 注解语法  &amp;lt;pre&amp;gt;`一个注解是由一个注解接口定义的     modifiers @interface AnnotationName">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[原]Java之注解初学">
+<meta property="og:url" content="http://yoursite.com/2017/06/16/原-Java之注解初学/index.html">
+<meta property="og:site_name" content="It&#39;s my blog">
+<meta property="og:description" content="注解是那些插入到源代码中用于某种工具处理的标签。这些标签可以在源代码层次上进行操作，也可以在处理编译器将它们纳入到注解类文件中。在Java中，注解是当一个修饰符来被使用的，它被置于被注解项之前，中间没有分号。 `&amp;lt;/pre&amp;gt;  ## 注解语法  &amp;lt;pre&amp;gt;`一个注解是由一个注解接口定义的     modifiers @interface AnnotationName">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-10-11T14:26:05.214Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[原]Java之注解初学">
+<meta name="twitter:description" content="注解是那些插入到源代码中用于某种工具处理的标签。这些标签可以在源代码层次上进行操作，也可以在处理编译器将它们纳入到注解类文件中。在Java中，注解是当一个修饰符来被使用的，它被置于被注解项之前，中间没有分号。 `&amp;lt;/pre&amp;gt;  ## 注解语法  &amp;lt;pre&amp;gt;`一个注解是由一个注解接口定义的     modifiers @interface AnnotationName">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/16/原-Java之注解初学/"/>
+
+
+
+
+
+  <title>[原]Java之注解初学 | It's my blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">It's my blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Java</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/16/原-Java之注解初学/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu.Zhou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="It's my blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[原]Java之注解初学</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-16T21:59:42+08:00">
+                2017-06-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <pre><code>注解是那些插入到源代码中用于某种工具处理的标签。这些标签可以在源代码层次上进行操作，也可以在处理编译器将它们纳入到注解类文件中。在Java中，注解是当一个修饰符来被使用的，它被置于被注解项之前，中间没有分号。
+`&lt;/pre&gt;
+
+## 注解语法
+
+&lt;pre&gt;`一个注解是由一个注解接口定义的
+    modifiers @interface AnnotationName
+    {
+        element declaration1;
+        element declaration2;
+    }
+每个元素声明有两种方式：
+type elementName();或者type elementName() default value;
+举例来说，下面这个注解具有两个元素：value和nums.
+    public @interface AnnotationDemo {
+        String value() default &quot;&quot;;
+        int nums() default 0;
+    }
+
+每个注解有下面这种格式
+    @AnnotationName(elementName1 = value1, elementName2 = value2, ....) 元素的顺序没有影响。如下
+    @AnnotationDemo (value=&quot;test&quot;, nums=5)
+如果某个元素的值未指定，那么就使用声明的默认值。如下：
+    @AnnotationDemo(nums=5)
+元素value的默认值是空字符串&quot;&quot;
+如果没有指定元素，可能是注解中没有任何元素，也可能是所有元素都是用默认值。那么就不需要使用圆括号了
+    @AnnotationDemo
+这样的注解又称为标记注解。
+当一个注解中只有一个元素，且具有特殊的名字value,这样的注解被称为单值注解。那么可以忽略掉元素名和等号
+    public @interface Action
+    {
+        String value();
+    }
+可以书写成如下形式：
+@Action(&quot;Hello&quot;)
+`&lt;/pre&gt;
+
+## 注解元素类型
+
+&lt;pre&gt;`1、一个基本类型（int、short、long、byte、char、double、float、boolean）。
+2、String
+3、Class(具有一个可供选择的类型参数，计入Class&amp;lt;? extends SuperClass&amp;gt;)
+4、注解类型
+5、前面所述类型组成的数组
+例子如下
+    public @interface AnnotationTest {
+        String assignedTo() default &quot;[none]&quot;;
+        enum status{SUCCESS, ERROR};
+        boolean stop() default false;
+        Class&amp;lt;?&amp;gt; testCase() default Void.class;
+        ElementType type() default ElementType.TYPE;
+        String[] reporteBy();
+    }
+`&lt;/pre&gt;
+
+## 元注解
+
+&lt;pre&gt;`元注解用于描述注解接口的行为属性，即用来限制其它注解的行为及范围。
+1、@Target元注解可以应用于一个注解，以限制该注解可以应用到那些项上。例如：
+    @Target({ElementType.TYPE, ElementType.METHOD})
+下面是所有可能的取值情况.它们属于枚举类型ElementType可以指定任意数量的元素类型，用括号括起来.
+    ANNOTATION_TYPE  注解类型声明
+    PACKAGE                   包
+    TYPE                           类（包括enum及接口（包括注解类型））
+    METHOD                    方法
+    CONSTRUCYOR         构造器
+    FIELD                          成员域（包括enum常量）
+    PARAMETER               方法或构造器参数
+    LOCAL_VARIABLE       本地变量
+
+2、@Retentiont元注解用于指定一条注解应该保留多长时间。其中默认值
+    RetentionPolicy.CLASS
+    SOURCE    不包括在类文件中的注解
+    CLASS       类文件中的注解，但是虚拟机不需要将他们载入
+    RUNTIME  类文件中的注解，并由虚拟机载入。通过反射API可获取它们。
+
+3、@Document元注解为像Javadoc这样的文档工具提供了一些提示。
+4、@Inherited元注解只能应用于对类的注解。如果一个类具有继承注解，那么它的所有子类都具有同样的注解。
+
+        &lt;div&gt;
+            作者：StruggleShu 发表于2017/6/16 21:59:42 [原文链接](http://blog.csdn.net/struggleshu/article/details/73351237)
+        &lt;/div&gt;
+        &lt;div&gt;
+        阅读：68 评论：0 [查看评论](http://blog.csdn.net/struggleshu/article/details/73351237#comments)
+        &lt;/div&gt;
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/15/原-Java多线程之CountDwonLatch/" rel="next" title="[原]Java多线程之CountDwonLatch">
+                <i class="fa fa-chevron-left"></i> [原]Java多线程之CountDwonLatch
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/17/原-Java之泛型剖析/" rel="prev" title="[原]Java之泛型剖析">
+                [原]Java之泛型剖析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Shu.Zhou</p>
+              <p class="site-description motion-element" itemprop="description">技术之路......</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">Artikel</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shu.Zhou</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
