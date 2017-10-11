@@ -232,449 +232,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/28/原-Java多线程之ThreadLocal/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shu.Zhou">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="It's my blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/28/原-Java多线程之ThreadLocal/" itemprop="url">[原]Java多线程之ThreadLocal</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-28T10:40:57+08:00">
-                2017-06-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <pre><code>ThreadLocal直译为&quot;本地线程&quot;，但它并不是这样。ThreadLocal本身其实是一个容器，用于 存放线程的局部变量，这个类能使线程中的某个值与保存值的线程对象关联起来。ThreadLocal提供了get和set等访问接口或方法，这些方法为每个使用该变量的线程都存有一份副本，因此get总是返回当前执行线程在调用set时设置的最新值。下面将以实例代码说明。
-
-场景：一个序列号生成器的程序同时会有多个线程访问它，要保证每个线程得到的序列号都是自增的，而相互不干扰。
-
-先定义一个接口：
-`&lt;/pre&gt;
-
-&lt;pre class=&quot;prettyprint&quot;&gt;`&lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;interface&lt;/span&gt; Sequence {
-    &lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt; getNumber();
-}`&lt;/pre&gt;
-
-&lt;pre&gt;`每次调用getNumber()方法可获取序列号，下次在调用时，序列号会自增。
-`&lt;/pre&gt;
-
-## 线程类
-
-&lt;pre class=&quot;prettyprint&quot;&gt;`&lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-class&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;ClientThread&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;Runnable&lt;/span&gt; {&lt;/span&gt;
-    &lt;span class=&quot;hljs-keyword&quot;&gt;private&lt;/span&gt; Sequence sequence;
-
-    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;ClientThread&lt;/span&gt;(Sequence sequence) {
-        &lt;span class=&quot;hljs-keyword&quot;&gt;this&lt;/span&gt;.sequence = sequence;
-    }
-
-    &lt;span class=&quot;hljs-annotation&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;run&lt;/span&gt;() {
-        &lt;span class=&quot;hljs-keyword&quot;&gt;for&lt;/span&gt; (&lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt; i = &lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt;; i &amp;lt; &lt;span class=&quot;hljs-number&quot;&gt;3&lt;/span&gt;; ++i) {
-            System.out.println(Thread.currentThread().getName() + &lt;span class=&quot;hljs-string&quot;&gt;&quot; =&amp;gt; &quot;&lt;/span&gt; + sequence.getNumber());
-        }
-    }
-}`&lt;/pre&gt;
-
-## 错误的案例
-
-&lt;pre class=&quot;prettyprint&quot;&gt;`&lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-class&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;SequenceA&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;Sequence&lt;/span&gt; {&lt;/span&gt;
-    &lt;span class=&quot;hljs-keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt; number = &lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt;;
-
-    &lt;span class=&quot;hljs-annotation&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;getNumber&lt;/span&gt;() {
-        number++;
-        &lt;span class=&quot;hljs-keyword&quot;&gt;return&lt;/span&gt; number;
-    }
-
-    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;main&lt;/span&gt;(String[] args) {
-        Sequence sequence = &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; SequenceA();
-        ClientThread clientThread = &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; ClientThread(sequence);
-        ClientThread clientThread1 = &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; ClientThread(sequence);
-        ClientThread clientThread2 = &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; ClientThread(sequence);
-
-        &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; Thread(clientThread).start();
-        &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; Thread(clientThread1).start();
-        &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; Thread(clientThread2).start();
-    }
-}`&lt;/pre&gt;
-
-&lt;pre&gt;`运行结果：
-Thread-0 =&amp;gt; 1
-Thread-0 =&amp;gt; 2
-Thread-0 =&amp;gt; 3
-Thread-1 =&amp;gt; 4
-Thread-1 =&amp;gt; 5
-Thread-1 =&amp;gt; 6
-Thread-2 =&amp;gt; 7
-Thread-2 =&amp;gt; 8
-Thread-2 =&amp;gt; 9
-因为number是static修饰，属于共享资源，所以number一直自增，不能保证线程安全。
-`&lt;/pre&gt;
-
-## 使用ThreadLocal
-
-&lt;pre class=&quot;prettyprint&quot;&gt;`&lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-class&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;SequenceB&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;Sequence&lt;/span&gt; {&lt;/span&gt;
-    &lt;span class=&quot;hljs-keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;static&lt;/span&gt; ThreadLocal&amp;lt;Integer&amp;gt; threadLocal = &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; ThreadLocal&amp;lt;Integer&amp;gt;(){
-        &lt;span class=&quot;hljs-annotation&quot;&gt;@Override&lt;/span&gt;
-        &lt;span class=&quot;hljs-keyword&quot;&gt;protected&lt;/span&gt; Integer &lt;span class=&quot;hljs-title&quot;&gt;initialValue&lt;/span&gt;() {
-            &lt;span class=&quot;hljs-keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt;;
-        }
-    };
-
-    &lt;span class=&quot;hljs-annotation&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;getNumber&lt;/span&gt;() {
-        threadLocal.set(threadLocal.get() + &lt;span class=&quot;hljs-number&quot;&gt;1&lt;/span&gt;);
-        &lt;span class=&quot;hljs-keyword&quot;&gt;return&lt;/span&gt; threadLocal.get();
-    }
-
-    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;main&lt;/span&gt;(String[] args) {
-        Sequence sequence = &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; SequenceB();
-        ClientThread clientThread = &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; ClientThread(sequence);
-        ClientThread clientThread1 = &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; ClientThread(sequence);
-        ClientThread clientThread2 = &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; ClientThread(sequence);
-
-        &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; Thread(clientThread).start();
-        &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; Thread(clientThread1).start();
-        &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; Thread(clientThread2).start();
-    }
-}`&lt;/pre&gt;
-
-&lt;pre&gt;`运行结果
-Thread-0 =&amp;gt; 1
-Thread-1 =&amp;gt; 1
-Thread-1 =&amp;gt; 2
-Thread-1 =&amp;gt; 3
-Thread-2 =&amp;gt; 1
-Thread-2 =&amp;gt; 2
-Thread-2 =&amp;gt; 3
-Thread-0 =&amp;gt; 2
-Thread-0 =&amp;gt; 3
-
-从运行结果可以看出，每个线程相互独立了，同样是static变量，对于不同的线程而言，它没有被共享，而是每个线程各一份，这样就保证了线程安全。也就是说，ThreadLocal为每个线程提供了独立的副本。
-
-ThreadLocal的API
-public void set(T value):将值放入线程局部变量中；
-public T get():从线程局部变量中获取值；
-public void remove():从线程局部变量中移除值；
-protected T initialValue():返回线程局部变量中的初始值（默认为null）
-`&lt;/pre&gt;
-
-## 自己实现ThreadLocal
-
-&lt;pre&gt;`ThreadLocal其实就是封装了一个线程安全的Map
-`&lt;/pre&gt;
-
-&lt;pre class=&quot;prettyprint&quot;&gt;`&lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;class&lt;/span&gt; MyThreadLocal&amp;lt;T&amp;gt; {
-    &lt;span class=&quot;hljs-comment&quot;&gt;//封装一个线程安全的Map，以线程对象为key，线程变量T为value&lt;/span&gt;
-    &lt;span class=&quot;hljs-keyword&quot;&gt;private&lt;/span&gt; Map&amp;lt;Thread, T&amp;gt; threadTMap = Collections.synchronizedMap(&lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; HashMap&amp;lt;Thread, T&amp;gt;());
-
-    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;set&lt;/span&gt;(T t) {
-        threadTMap.put(Thread.currentThread(), t);
-    }
-
-    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; T &lt;span class=&quot;hljs-title&quot;&gt;get&lt;/span&gt;() {
-        Thread thread = Thread.currentThread();
-        T &lt;span class=&quot;hljs-keyword&quot;&gt;value&lt;/span&gt; = threadTMap.&lt;span class=&quot;hljs-keyword&quot;&gt;get&lt;/span&gt;(thread);
-        &lt;span class=&quot;hljs-keyword&quot;&gt;if&lt;/span&gt; (&lt;span class=&quot;hljs-keyword&quot;&gt;value&lt;/span&gt; == &lt;span class=&quot;hljs-keyword&quot;&gt;null&lt;/span&gt; &amp;amp;&amp;amp; !threadTMap.containsKey(thread)) {
-            &lt;span class=&quot;hljs-keyword&quot;&gt;value&lt;/span&gt; = initValue();
-            threadTMap.put(thread, &lt;span class=&quot;hljs-keyword&quot;&gt;value&lt;/span&gt;);
-        }
-
-        &lt;span class=&quot;hljs-keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;value&lt;/span&gt;;
-    }
-
-    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;remove&lt;/span&gt;() {
-        threadTMap.remove(Thread.currentThread());
-    }
-
-    &lt;span class=&quot;hljs-keyword&quot;&gt;protected&lt;/span&gt; T &lt;span class=&quot;hljs-title&quot;&gt;initValue&lt;/span&gt;() {
-        &lt;span class=&quot;hljs-keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;null&lt;/span&gt;;
-    }
-}`&lt;/pre&gt;
-
-## 使用MyThreadLocal来实现：
-
-&lt;pre class=&quot;prettyprint&quot;&gt;`&lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-class&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;SequenceC&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;Sequence&lt;/span&gt; {&lt;/span&gt;
-    &lt;span class=&quot;hljs-keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;static&lt;/span&gt; MyThreadLocal&amp;lt;Integer&amp;gt; myThreadLocal = &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; MyThreadLocal&amp;lt;Integer&amp;gt;(){
-        &lt;span class=&quot;hljs-annotation&quot;&gt;@Override&lt;/span&gt;
-        &lt;span class=&quot;hljs-keyword&quot;&gt;protected&lt;/span&gt; Integer &lt;span class=&quot;hljs-title&quot;&gt;initValue&lt;/span&gt;() {
-            &lt;span class=&quot;hljs-keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt;;
-        }
-    };
-
-    &lt;span class=&quot;hljs-annotation&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;getNumber&lt;/span&gt;() {
-        myThreadLocal.set(myThreadLocal.get() + &lt;span class=&quot;hljs-number&quot;&gt;1&lt;/span&gt;);
-        &lt;span class=&quot;hljs-keyword&quot;&gt;return&lt;/span&gt; myThreadLocal.get();
-    }
-
-    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;main&lt;/span&gt;(String[] args) {
-        Sequence sequenceC = &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; SequenceC();
-
-        &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; Thread(&lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; ClientThread(sequenceC)).start();
-        &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; Thread(&lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; ClientThread(sequenceC)).start();
-        &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; Thread(&lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; ClientThread(sequenceC)).start();
-    }
-}`&lt;/pre&gt;
-
-&lt;pre&gt;`运行结果：
-Thread-0 =&amp;gt; 1
-Thread-0 =&amp;gt; 2
-Thread-0 =&amp;gt; 3
-Thread-1 =&amp;gt; 1
-Thread-1 =&amp;gt; 2
-Thread-1 =&amp;gt; 3
-Thread-2 =&amp;gt; 1
-Thread-2 =&amp;gt; 2
-Thread-2 =&amp;gt; 3
-运行效果和之前一样，同样正确。
-
-ThreadLocal对象通常用于防止对可变的单实例变量或全局变量进行共享。例如：在单线程应用程序中可能维持一个全局的数据库连接，并在程序启动时初始化这个连接，从而避免在调用每个方法时都要传递一个Connection对象。由于JDBC的连接对象不一定是线程安全的，因此，当多线程应用程序在没有协同的情况下使用全局变量时，就不是线程安全的。通过将JDBC的连接保存到ThreadLocal对象中，每个线程都会有属于自己的来连接。
-
-        &lt;div&gt;
-            作者：StruggleShu 发表于2017/6/28 10:40:57 [原文链接](http://blog.csdn.net/struggleshu/article/details/73828729)
-        &lt;/div&gt;
-        &lt;div&gt;
-        阅读：76 评论：0 [查看评论](http://blog.csdn.net/struggleshu/article/details/73828729#comments)
-        &lt;/div&gt;
-</code></pre>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/20/转-Intellij-IDEA中生成jar包/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shu.Zhou">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="It's my blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/20/转-Intellij-IDEA中生成jar包/" itemprop="url">[转]Intellij IDEA中生成jar包</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-20T18:29:26+08:00">
-                2017-06-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Intellij IDEA 为优秀的Java开发环境，但是有很多人知道利用此工具可以编译成class文件，而不知道如何在intellij IDEA工具如何将所有的class打包成jar文件，现在将方法介绍如下：</p>
-<p>1.选择菜单File-&gt;Project Structure，将弹出Project Structure的设置对话框。</p>
-<p>2.选择左边的Artifacts后点击上方的“+”按钮</p>
-<p>3.在弹出的框中选择jar-&gt;from moduls with dependencies..</p>
-<p>4.选择要启动的类，然后 确定</p>
-<p>5.应用之后选择菜单Build-&gt;Build Artifacts,选择Build或者Rebuild后即可生成，生成的jar文件位于工程项目目录的out/artifacts下。</p>
-<pre><code>&lt;div&gt;
-    作者：StruggleShu 发表于2017/6/20 18:29:26 [原文链接](http://blog.csdn.net/struggleshu/article/details/73506005)
-&lt;/div&gt;
-&lt;div&gt;
-阅读：215 评论：0 [查看评论](http://blog.csdn.net/struggleshu/article/details/73506005#comments)
-&lt;/div&gt;
-</code></pre>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/20/转-Centos7下中文乱码解决/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1243,11 +800,385 @@ type elementName();或者type elementName() default value;
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/15/原-Java多线程之CountDwonLatch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu.Zhou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="It's my blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/15/原-Java多线程之CountDwonLatch/" itemprop="url">[原]Java多线程之CountDwonLatch</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-15T21:07:19+08:00">
+                2017-06-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <pre><code>CountDwonLatch是一个非常实用的多线程控制工具类，这个工具类通常用来控制线程等待，它可以让某个线程等待直到其它线程执行任务结束，在开始执行。下面先看代码，根据代码分析程序，提出问题。
+`&lt;/pre&gt;
+
+&lt;pre class=&quot;prettyprint&quot;&gt;`&lt;span class=&quot;hljs-keyword&quot;&gt;import&lt;/span&gt; java.util.concurrent.CountDownLatch;
+&lt;span class=&quot;hljs-keyword&quot;&gt;import&lt;/span&gt; java.util.concurrent.ExecutorService;
+&lt;span class=&quot;hljs-keyword&quot;&gt;import&lt;/span&gt; java.util.concurrent.Executors;
+
+&lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-class&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;CountDownLatchDemo&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;Runnable&lt;/span&gt; {&lt;/span&gt;
+    &lt;span class=&quot;hljs-keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;static&lt;/span&gt; CountDownLatch lock = &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; CountDownLatch(&lt;span class=&quot;hljs-number&quot;&gt;100&lt;/span&gt;);
+    &lt;span class=&quot;hljs-keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;static&lt;/span&gt; CountDownLatchDemo task = &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; CountDownLatchDemo();
+
+    &lt;span class=&quot;hljs-annotation&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;run&lt;/span&gt;() {
+        &lt;span class=&quot;hljs-comment&quot;&gt;//模拟任务&lt;/span&gt;
+        &lt;span class=&quot;hljs-keyword&quot;&gt;try&lt;/span&gt; {
+            Thread.sleep(&lt;span class=&quot;hljs-number&quot;&gt;3&lt;/span&gt;);
+            System.out.println(&lt;span class=&quot;hljs-string&quot;&gt;&quot;线程&quot;&lt;/span&gt; + Thread.currentThread().getName());
+            lock.countDown();
+        } &lt;span class=&quot;hljs-keyword&quot;&gt;catch&lt;/span&gt; (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;main&lt;/span&gt;(String[] args) &lt;span class=&quot;hljs-keyword&quot;&gt;throws&lt;/span&gt; InterruptedException {
+        ExecutorService service = Executors.newFixedThreadPool(&lt;span class=&quot;hljs-number&quot;&gt;5&lt;/span&gt;);
+        &lt;span class=&quot;hljs-keyword&quot;&gt;for&lt;/span&gt; (&lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt;  i = &lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt;; i &amp;lt; &lt;span class=&quot;hljs-number&quot;&gt;100&lt;/span&gt;; ++i) {
+            service.submit(task);
+        }
+        lock.await();
+        System.out.println(&lt;span class=&quot;hljs-string&quot;&gt;&quot;主线程执行了&quot;&lt;/span&gt;);
+        service.shutdown();
+    }
+}`&lt;/pre&gt;
+
+&lt;pre&gt;`代码第六行生成一个CountDwonLatch实例。计数量为100（有点类似与一组信号量）。在这段代码中这表示需要100个线程完成任务，等待在CountDwonLatch上的线程才能继续往下执行。最后的执行结果即主线程等待线程池中提交任务执行结束后，才会接着继续执行。那么就有一个疑问：当前情况是在拥有5个线程的线程池中提交了100个任务。即100个任务执行完成后，100个计数被消耗后，主线程才开始执行。这样看的话，CountDwonLatch中的计数数量就仅仅作为一个辅助的县城管理工具，每个线程执行一次，自身减一，只到计数量为0。如果是这样，那么使用单线程循环执行100次，同样可以达到相同的结果，下面编程验证：
+`&lt;/pre&gt;
+
+&lt;pre class=&quot;prettyprint&quot;&gt;`&lt;span class=&quot;hljs-keyword&quot;&gt;import&lt;/span&gt; java.util.concurrent.CountDownLatch;
+&lt;span class=&quot;hljs-keyword&quot;&gt;import&lt;/span&gt; java.util.concurrent.ExecutorService;
+&lt;span class=&quot;hljs-keyword&quot;&gt;import&lt;/span&gt; java.util.concurrent.Executors;
+
+&lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-class&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;CountDownLatchDemo2&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;Runnable&lt;/span&gt; {&lt;/span&gt;
+    &lt;span class=&quot;hljs-keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;static&lt;/span&gt; CountDownLatchDemo2 task = &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; CountDownLatchDemo2();
+    &lt;span class=&quot;hljs-keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;static&lt;/span&gt; CountDownLatch lock = &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; CountDownLatch(&lt;span class=&quot;hljs-number&quot;&gt;100&lt;/span&gt;);
+
+    &lt;span class=&quot;hljs-annotation&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;run&lt;/span&gt;() {
+        &lt;span class=&quot;hljs-keyword&quot;&gt;try&lt;/span&gt; {
+            &lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt; i = &lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt;;
+            &lt;span class=&quot;hljs-keyword&quot;&gt;while&lt;/span&gt; (i++ &amp;lt; &lt;span class=&quot;hljs-number&quot;&gt;100&lt;/span&gt;) {
+                Thread.sleep(&lt;span class=&quot;hljs-number&quot;&gt;3&lt;/span&gt;);
+                System.out.println(&lt;span class=&quot;hljs-string&quot;&gt;&quot;线程:&quot;&lt;/span&gt; + Thread.currentThread().getName());
+                lock.countDown();
+            }
+        } &lt;span class=&quot;hljs-keyword&quot;&gt;catch&lt;/span&gt; (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;main&lt;/span&gt;(String[] args) &lt;span class=&quot;hljs-keyword&quot;&gt;throws&lt;/span&gt; InterruptedException {
+        ExecutorService service = Executors.newFixedThreadPool(&lt;span class=&quot;hljs-number&quot;&gt;1&lt;/span&gt;);
+        &lt;span class=&quot;hljs-keyword&quot;&gt;for&lt;/span&gt; (&lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt;  i = &lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt;; i &amp;lt; &lt;span class=&quot;hljs-number&quot;&gt;1&lt;/span&gt;; ++i) {
+            service.submit(task);
+        }
+
+        lock.await();
+        System.out.println(&lt;span class=&quot;hljs-string&quot;&gt;&quot;主线程执行了&quot;&lt;/span&gt;);
+        service.shutdown();
+    }
+}`&lt;/pre&gt;
+
+&lt;pre&gt;`测试情况为在单线程的线程池中，提交了单次任务，在线程任务中，循环100次。经过测试发现，主线程同样是在线程池中线程任务执行完后，继续执行。
+
+经过上面的测试，我们看以看出CountDwonLatch本身是一个不与线程耦合的计数器，每执行一次countDown()方法，计数器数量减一。直到减为0为止，等待在CountDwonLatch才会有执行机会。这样我们可以大胆的猜测，如果CountDwonLatch本身的计数器一旦被消耗完（即为0时），等待其上面的线程即获得了执行权，不在被阻塞。（经测试，确实是这样）。它本身只充当一个线程辅助工具类。
+
+        &lt;div&gt;
+            作者：StruggleShu 发表于2017/6/15 21:07:19 [原文链接](http://blog.csdn.net/struggleshu/article/details/73302580)
+        &lt;/div&gt;
+        &lt;div&gt;
+        阅读：239 评论：0 [查看评论](http://blog.csdn.net/struggleshu/article/details/73302580#comments)
+        &lt;/div&gt;
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/14/原-枚举单例模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu.Zhou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="It's my blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/14/原-枚举单例模式/" itemprop="url">[原]枚举单例模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-14T21:12:24+08:00">
+                2017-06-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <pre><code>Java中的枚举类非常强大的。之前看过单例的许多实现，对于枚举的单例略有了解，但理解不够深刻，最近结合实例研究了一下，感觉枚举是很强大且非常好用。
+
+首先看一个最简单的枚举单例模式:
+`&lt;/pre&gt;
+
+&lt;pre class=&quot;prettyprint&quot;&gt;`&lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;enum&lt;/span&gt;  TestEnum {
+    TEST_ENUM;
+}`&lt;/pre&gt;
+
+&lt;pre&gt;`其中TEST_ENUM，即为TestEnum类的唯一实例。这样写可能一眼看去，没什么意义。也不是很好理解。下面以生成一个单例的CGLib动态代理类作为场景进行总结。先放代码：
+`&lt;/pre&gt;
+
+## 代理类
+
+&lt;pre class=&quot;prettyprint&quot;&gt;`import java.lang.reflect.&lt;span class=&quot;hljs-keyword&quot;&gt;Method&lt;/span&gt;;
+
+&lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;enum&lt;/span&gt; CGLibProxyEnum &lt;span class=&quot;hljs-keyword&quot;&gt;implements&lt;/span&gt; MethodInterceptor &lt;span class=&quot;hljs-comment&quot;&gt;{
+    CG_LIB_PROXY_ENUM;
+
+    public &amp;lt;T&amp;gt; T getProxy(Class&amp;lt;T&amp;gt; cls) {
+        return (T)Enhancer.create(cls, this);
+    }&lt;/span&gt;
+
+    @&lt;span class=&quot;hljs-keyword&quot;&gt;Override&lt;/span&gt;
+    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; Object intercept(Object o, &lt;span class=&quot;hljs-function&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;Method&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;method&lt;/span&gt;, &lt;span class=&quot;hljs-title&quot;&gt;Object&lt;/span&gt;[] &lt;span class=&quot;hljs-title&quot;&gt;objects&lt;/span&gt;, &lt;span class=&quot;hljs-title&quot;&gt;MethodProxy&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;methodProxy&lt;/span&gt;) &lt;span class=&quot;hljs-title&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;Throwable&lt;/span&gt; &lt;span class=&quot;hljs-comment&quot;&gt;{
+        return methodProxy.invokeSuper(o, objects);
+    }&lt;/span&gt;
+}&lt;/span&gt;`&lt;/pre&gt;
+
+## 测试类
+
+&lt;pre class=&quot;prettyprint&quot;&gt;`class Hello {
+    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;sayHello&lt;/span&gt;() {
+        System.&lt;span class=&quot;hljs-keyword&quot;&gt;out&lt;/span&gt;.println(&lt;span class=&quot;hljs-string&quot;&gt;&quot;Hello, new Boys&quot;&lt;/span&gt;);
+    }
+}
+&lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;class&lt;/span&gt; Test {
+    &lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;main&lt;/span&gt;(String[] args) {
+        Hello helloProxy = CGLibProxyEnum.CG_LIB_PROXY_ENUM.getProxy(Hello.class);
+        helloProxy.sayHello();
+   }
+}
+`&lt;/pre&gt;
+
+&lt;pre&gt;`测试结果打印：Hello, new Boys
+
+上面的CGLibProxyEnum枚举类实现了MethodInterceptor接口，并重写了其中的intercept方法。在其内部创建了唯一的实例CG_LIB_PROXY_ENUM；这是由其默认的私有的构造器创建的。
+这里可以看出，枚举单例模式非常简单，易于实现，且类型安全。而且有着和普通类一样的基本功能。并且枚举类默认final修饰，不允许被继承。
+
+        &lt;div&gt;
+            作者：StruggleShu 发表于2017/6/14 21:12:24 [原文链接](http://blog.csdn.net/struggleshu/article/details/73252230)
+        &lt;/div&gt;
+        &lt;div&gt;
+        阅读：219 评论：0 [查看评论](http://blog.csdn.net/struggleshu/article/details/73252230#comments)
+        &lt;/div&gt;
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1293,7 +1224,7 @@ type elementName();或者type elementName() default value;
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
