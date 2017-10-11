@@ -79,16 +79,16 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="最大子序和问题：给定整数A1，A2，…..An（可能有负数)，求A1 &amp;#43;A2&amp;#43;A3&amp;#43;……&amp;#43;An的最大&amp;#20540;（规定：如果所有整数均为负数，则最大子序和为0） 例： 输入-2， 11， -4, 13， -5， -2时，答案为20（从A2到A4）。 下面给出四种不同复杂度的算法，进行比较分析 O（n3）的算法（穷举所有可能）&amp;lt;span style=&amp;quo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2017/10/10/hello-world/index.html">
+<meta property="og:title" content="[原]最大子序和问题">
+<meta property="og:url" content="http://yoursite.com/2016/04/14/原-最大子序和问题/index.html">
 <meta property="og:site_name" content="It&#39;s my blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta property="og:updated_time" content="2017-10-10T12:21:24.499Z">
+<meta property="og:description" content="最大子序和问题：给定整数A1，A2，…..An（可能有负数)，求A1 &amp;#43;A2&amp;#43;A3&amp;#43;……&amp;#43;An的最大&amp;#20540;（规定：如果所有整数均为负数，则最大子序和为0） 例： 输入-2， 11， -4, 13， -5， -2时，答案为20（从A2到A4）。 下面给出四种不同复杂度的算法，进行比较分析 O（n3）的算法（穷举所有可能）&amp;lt;span style=&amp;quo">
+<meta property="og:updated_time" content="2017-10-11T13:25:03.419Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="[原]最大子序和问题">
+<meta name="twitter:description" content="最大子序和问题：给定整数A1，A2，…..An（可能有负数)，求A1 &amp;#43;A2&amp;#43;A3&amp;#43;……&amp;#43;An的最大&amp;#20540;（规定：如果所有整数均为负数，则最大子序和为0） 例： 输入-2， 11， -4, 13， -5， -2时，答案为20（从A2到A4）。 下面给出四种不同复杂度的算法，进行比较分析 O（n3）的算法（穷举所有可能）&amp;lt;span style=&amp;quo">
 
 
 
@@ -118,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/10/10/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/04/14/原-最大子序和问题/"/>
 
 
 
 
 
-  <title>Hello World | It's my blog</title>
+  <title>[原]最大子序和问题 | It's my blog</title>
   
 
 
@@ -231,7 +231,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/10/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/04/14/原-最大子序和问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shu.Zhou">
@@ -248,7 +248,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">[原]最大子序和问题</h1>
         
 
         <div class="post-meta">
@@ -260,8 +260,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-10T20:21:24+08:00">
-                2017-10-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-04-14T13:32:56+08:00">
+                2016-04-14
               </time>
             
 
@@ -298,16 +298,93 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p><span style="font-size:18px">最大子序和问题：给定整数A1，A2，…..An（可能有负数)，求A1 &#43;A2&#43;A3&#43;……&#43;An的最大&#20540;（规定：如果所有整数均为负数，则最大子序和为0）</span></p>
+<p><span style="font-size:18px">例：</span></p>
+<p><span style="font-size:18px">输入-2， 11， -4, 13， -5， -2时，答案为20（从A2到A4）。</span></p>
+<p><span style="font-size:18px">下面给出四种不同复杂度的算法，进行比较分析</span></p>
+<p><span style="font-size:18px">O（n3）的算法（穷举所有可能）</span><pre name="code" class="java">&lt;span style=&quot;font-size:18px;&quot;&gt;public static int maxSubsequenceSum(int[] nums) {<br>    int ThisSum = 0;<br>    int MaxSum = 0;</pre></p>
+<pre><code>for (int i = 0; i &amp;lt; nums.length; i++) {
+   for (int j = i; j &amp;lt; nums.length; j++) {
+       ThisSum = 0;
+       for (int k = i; k &amp;lt; j; k++) {
+            ThisSum += nums[k];
+       }
+         if (ThisSum &amp;gt; MaxSum)
+             MaxSum = ThisSum;
+          }
+     }
+    return MaxSum;
+  }
+</code></pre><p>}&lt;/span&gt;<span style="font-size:18px"></span></p>
+<p><pre name="code" class="java">&lt;span style=&quot;font-size:18px;&quot;&gt;O（n2）的算法（去掉一次for循环）<br>&lt;/span&gt;&lt;pre name=&quot;code&quot; class=&quot;java&quot;&gt;&lt;span style=&quot;font-size:18px;&quot;&gt;public static int maxSubsequenceSum(int[] nums) {<br>    int ThisSum = 0;<br>        int MaxSum = 0;</pre></p>
+<pre><code>for (int i = 0; i &amp;lt; nums.length; i++) {
+    ThisSum = 0;
+     for (int j = i; j &amp;lt; nums.length; j++) {
+        ThisSum += nums[j];
+         if (ThisSum &amp;gt; MaxSum)
+               MaxSum = ThisSum;
+          }
+     }
+      return MaxSum;
+  }
+</code></pre><p>}&lt;/span&gt;<span style="font-size:18px"></span></p>
+<p>O（nlogn）的算法（利用分治的策略，代码比较复杂）</p>
+<p></p>
+<p><pre></pre></p>
+<p><pre name="code" class="java">&lt;span style=&quot;font-size:18px;&quot;&gt;public static int maxSubSum(int[] nums, int Left, int Right) {<br>    int MaxLeftSum, MaxRightSum;</pre></p>
+<pre><code>if (Left == Right){
+    if (nums[0] &amp;gt; 0)
+        return nums[0];
+    else
+        return 0;
+     }
 
+ int Center = (Left + Right) / 2;
+    MaxLeftSum = maxSubSum(nums, Left, Center);
+MaxRightSum = maxSubSum(nums, Center + 1, Right);
+
+int MaxLeftBorderSum = 0, LeftBorderSum = 0;
+ for (int i = Center; i &amp;gt;= Left; i--) {
+     LeftBorderSum += nums[i];
+    if (LeftBorderSum &amp;gt; MaxLeftBorderSum)
+         MaxLeftBorderSum = LeftBorderSum;
+     }
+
+     int MaxRightBorderSum = 0, RightBorderSum = 0;
+    for (int i = Center + 1; i &amp;lt; Right; i++) {
+        RightBorderSum += nums[i];
+         if (RightBorderSum &amp;gt; MaxRightBorderSum)
+             MaxRightBorderSum = RightBorderSum;
+    }
+
+ int max = MaxLeftSum;
+max = (max &amp;lt; MaxLeftSum ? MaxLeftSum : max);
+max = (max &amp;lt; (MaxLeftBorderSum + MaxRightBorderSum) ? (MaxLeftBorderSum + MaxRightBorderSum) : max);
+return max;
+</code></pre><p>}&lt;/span&gt;<span style="font-size:18px"></span></p>
+<p>O(n)的算法（最为巧妙地算法）</p>
+<p></p>
+<p><pre name="code" class="java">&lt;span style=&quot;font-size:18px;&quot;&gt;public static int maxSum(int[] nums) {<br>    int thisSum = 0;<br>    int maxSum = 0;</pre></p>
+<pre><code>for (int i = 0; i &amp;lt;nums.length; i++){
+    thisSum += nums[i];
+
+    if (maxSum &amp;lt; thisSum){
+        maxSum = thisSum;
+    }
+    if (thisSum &amp;lt; 0){
+        thisSum = 0;
+    }
+}        
+return maxSum;
+</code></pre><p>}<br>&lt;/span&gt;<span style="font-size:18px"></span></p>
+<p></p>
+<pre><code>&lt;div&gt;
+    作者：StruggleShu 发表于2016/4/14 13:32:56 [原文链接](http://blog.csdn.net/struggleshu/article/details/51150894)
+&lt;/div&gt;
+&lt;div&gt;
+阅读：726 评论：0 [查看评论](http://blog.csdn.net/struggleshu/article/details/51150894#comments)
+&lt;/div&gt;
+</code></pre>
       
     </div>
     
@@ -331,18 +408,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/15/转-Java多线程之Condition/" rel="next" title="[转]Java多线程之Condition">
-                <i class="fa fa-chevron-left"></i> [转]Java多线程之Condition
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/10/10/hello/" rel="prev" title="hello">
-                hello <i class="fa fa-chevron-right"></i>
+              <a href="/2016/04/18/原-java实现二叉树/" rel="prev" title="[原]java实现二叉树">
+                [原]java实现二叉树 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -395,17 +468,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -449,22 +513,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

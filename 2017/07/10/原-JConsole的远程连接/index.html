@@ -79,16 +79,18 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="JConsole是基于JMX的可视化监视、管理工具。可以很方便的监视本地及远程服务器的java进程的内存使用情况。下面介绍如何连接远程服务器，进行远程java程序的监控。  1、使用hostname -i 查看远程主机的hostname。 如果显示为 127.0.0.1，需要进行修改。 vim /etc/hosts 修改127.0.0.0.1 为服务器真实的外网ip。  2、被监控的程序运行时给虚">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2017/10/10/hello-world/index.html">
+<meta property="og:title" content="[原]JConsole的远程连接">
+<meta property="og:url" content="http://yoursite.com/2017/07/10/原-JConsole的远程连接/index.html">
 <meta property="og:site_name" content="It&#39;s my blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta property="og:updated_time" content="2017-10-10T12:21:24.499Z">
+<meta property="og:description" content="JConsole是基于JMX的可视化监视、管理工具。可以很方便的监视本地及远程服务器的java进程的内存使用情况。下面介绍如何连接远程服务器，进行远程java程序的监控。  1、使用hostname -i 查看远程主机的hostname。 如果显示为 127.0.0.1，需要进行修改。 vim /etc/hosts 修改127.0.0.0.1 为服务器真实的外网ip。  2、被监控的程序运行时给虚">
+<meta property="og:image" content="http://img.blog.csdn.net/20170710104049788?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU3RydWdnbGVTaHU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-10-11T13:25:03.414Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="[原]JConsole的远程连接">
+<meta name="twitter:description" content="JConsole是基于JMX的可视化监视、管理工具。可以很方便的监视本地及远程服务器的java进程的内存使用情况。下面介绍如何连接远程服务器，进行远程java程序的监控。  1、使用hostname -i 查看远程主机的hostname。 如果显示为 127.0.0.1，需要进行修改。 vim /etc/hosts 修改127.0.0.0.1 为服务器真实的外网ip。  2、被监控的程序运行时给虚">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170710104049788?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU3RydWdnbGVTaHU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 
 
 
@@ -118,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/10/10/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/10/原-JConsole的远程连接/"/>
 
 
 
 
 
-  <title>Hello World | It's my blog</title>
+  <title>[原]JConsole的远程连接 | It's my blog</title>
   
 
 
@@ -231,7 +233,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/10/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/10/原-JConsole的远程连接/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shu.Zhou">
@@ -248,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">[原]JConsole的远程连接</h1>
         
 
         <div class="post-meta">
@@ -260,8 +262,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-10T20:21:24+08:00">
-                2017-10-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-10T10:45:34+08:00">
+                2017-07-10
               </time>
             
 
@@ -298,16 +300,42 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <pre><code>JConsole是基于JMX的可视化监视、管理工具。可以很方便的监视本地及远程服务器的java进程的内存使用情况。下面介绍如何连接远程服务器，进行远程java程序的监控。
 
+1、使用hostname -i 查看远程主机的hostname。
+如果显示为 127.0.0.1，需要进行修改。
+vim /etc/hosts
+修改127.0.0.0.1 为服务器真实的外网ip。
+
+2、被监控的程序运行时给虚拟机添加一些运行的参数
+无需认证的远程监控配置
+-Dcom.sun.management.jmxremote.port=60001   //监控的端口号
+-Dcom.sun.management.jmxremote.authenticate=false   //关闭认证
+-Dcom.sun.management.jmxremote.ssl=false
+-Djava.rmi.server.hostname=192.168.1.50    
+其中-Djava.rmi.server.hostname为上一步修改后主机的外网真实ip（可以使用hostname -i查看）,其中监控的端口号可以自己定义，在远程连接的时候会用到
+设置需要密码的远程登陆配置
+-Dcom.sun.management.jmxremote.port=60001 
+-Dcom.sun.management.jmxremote.authenticate=true 
+-Dcom.sun.management.jmxremote.ssl=false 
+-Dcom.sun.management.jmxremote.pwd.file= {jmxremote.password}Path 
+-Djava.rmi.server.hostname=192.168.1.50  
+在/usr/lib/jvm/java-8-oracle/jre/lib/management下的jmxremote.access、jmxremote.password。
+jmxremote.access中存储用户名和对应的权限关系。
+jmxremote.password中存储用户名密码。
+注：在jmxremote.password和jmxremote.access的权限为600，所有者rw权限。
+
+3、远程连接
+选择远程进程
+hostname 即为 服务器外网真实ip，端口号为刚才设置的端口号（注意不要冲突），用户名即为主机用户名，密码如果采用无需认证链接则不需要，否则，填入自己设置的密码。点击连接，即可。（没认证会显示不安全，直接连接即可）
+</code></pre><p><img src="http://img.blog.csdn.net/20170710104049788?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU3RydWdnbGVTaHU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<pre><code>&lt;div&gt;
+    作者：StruggleShu 发表于2017/7/10 10:45:34 [原文链接](http://blog.csdn.net/struggleshu/article/details/74909985)
+&lt;/div&gt;
+&lt;div&gt;
+阅读：143 评论：0 [查看评论](http://blog.csdn.net/struggleshu/article/details/74909985#comments)
+&lt;/div&gt;
+</code></pre>
       
     </div>
     
@@ -331,8 +359,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/15/转-Java多线程之Condition/" rel="next" title="[转]Java多线程之Condition">
-                <i class="fa fa-chevron-left"></i> [转]Java多线程之Condition
+              <a href="/2017/07/01/原-数据库之事务/" rel="next" title="[原]数据库之事务">
+                <i class="fa fa-chevron-left"></i> [原]数据库之事务
               </a>
             
           </div>
@@ -341,8 +369,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/10/10/hello/" rel="prev" title="hello">
-                hello <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/15/转-Java多线程之Condition/" rel="prev" title="[转]Java多线程之Condition">
+                [转]Java多线程之Condition <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -395,17 +423,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -449,22 +468,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

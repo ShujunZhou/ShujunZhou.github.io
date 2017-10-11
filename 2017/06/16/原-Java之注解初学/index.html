@@ -79,16 +79,16 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="注解是那些插入到源代码中用于某种工具处理的标签。这些标签可以在源代码层次上进行操作，也可以在处理编译器将它们纳入到注解类文件中。在Java中，注解是当一个修饰符来被使用的，它被置于被注解项之前，中间没有分号。 `&amp;lt;/pre&amp;gt;  ## 注解语法  &amp;lt;pre&amp;gt;`一个注解是由一个注解接口定义的     modifiers @interface AnnotationName">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2017/10/10/hello-world/index.html">
+<meta property="og:title" content="[原]Java之注解初学">
+<meta property="og:url" content="http://yoursite.com/2017/06/16/原-Java之注解初学/index.html">
 <meta property="og:site_name" content="It&#39;s my blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta property="og:updated_time" content="2017-10-10T12:21:24.499Z">
+<meta property="og:description" content="注解是那些插入到源代码中用于某种工具处理的标签。这些标签可以在源代码层次上进行操作，也可以在处理编译器将它们纳入到注解类文件中。在Java中，注解是当一个修饰符来被使用的，它被置于被注解项之前，中间没有分号。 `&amp;lt;/pre&amp;gt;  ## 注解语法  &amp;lt;pre&amp;gt;`一个注解是由一个注解接口定义的     modifiers @interface AnnotationName">
+<meta property="og:updated_time" content="2017-10-11T13:25:03.415Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="[原]Java之注解初学">
+<meta name="twitter:description" content="注解是那些插入到源代码中用于某种工具处理的标签。这些标签可以在源代码层次上进行操作，也可以在处理编译器将它们纳入到注解类文件中。在Java中，注解是当一个修饰符来被使用的，它被置于被注解项之前，中间没有分号。 `&amp;lt;/pre&amp;gt;  ## 注解语法  &amp;lt;pre&amp;gt;`一个注解是由一个注解接口定义的     modifiers @interface AnnotationName">
 
 
 
@@ -118,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/10/10/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/06/16/原-Java之注解初学/"/>
 
 
 
 
 
-  <title>Hello World | It's my blog</title>
+  <title>[原]Java之注解初学 | It's my blog</title>
   
 
 
@@ -231,7 +231,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/10/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/16/原-Java之注解初学/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shu.Zhou">
@@ -248,7 +248,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">[原]Java之注解初学</h1>
         
 
         <div class="post-meta">
@@ -260,8 +260,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-10T20:21:24+08:00">
-                2017-10-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-16T21:59:42+08:00">
+                2017-06-16
               </time>
             
 
@@ -298,16 +298,92 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <pre><code>注解是那些插入到源代码中用于某种工具处理的标签。这些标签可以在源代码层次上进行操作，也可以在处理编译器将它们纳入到注解类文件中。在Java中，注解是当一个修饰符来被使用的，它被置于被注解项之前，中间没有分号。
+`&lt;/pre&gt;
 
+## 注解语法
+
+&lt;pre&gt;`一个注解是由一个注解接口定义的
+    modifiers @interface AnnotationName
+    {
+        element declaration1;
+        element declaration2;
+    }
+每个元素声明有两种方式：
+type elementName();或者type elementName() default value;
+举例来说，下面这个注解具有两个元素：value和nums.
+    public @interface AnnotationDemo {
+        String value() default &quot;&quot;;
+        int nums() default 0;
+    }
+
+每个注解有下面这种格式
+    @AnnotationName(elementName1 = value1, elementName2 = value2, ....) 元素的顺序没有影响。如下
+    @AnnotationDemo (value=&quot;test&quot;, nums=5)
+如果某个元素的值未指定，那么就使用声明的默认值。如下：
+    @AnnotationDemo(nums=5)
+元素value的默认值是空字符串&quot;&quot;
+如果没有指定元素，可能是注解中没有任何元素，也可能是所有元素都是用默认值。那么就不需要使用圆括号了
+    @AnnotationDemo
+这样的注解又称为标记注解。
+当一个注解中只有一个元素，且具有特殊的名字value,这样的注解被称为单值注解。那么可以忽略掉元素名和等号
+    public @interface Action
+    {
+        String value();
+    }
+可以书写成如下形式：
+@Action(&quot;Hello&quot;)
+`&lt;/pre&gt;
+
+## 注解元素类型
+
+&lt;pre&gt;`1、一个基本类型（int、short、long、byte、char、double、float、boolean）。
+2、String
+3、Class(具有一个可供选择的类型参数，计入Class&amp;lt;? extends SuperClass&amp;gt;)
+4、注解类型
+5、前面所述类型组成的数组
+例子如下
+    public @interface AnnotationTest {
+        String assignedTo() default &quot;[none]&quot;;
+        enum status{SUCCESS, ERROR};
+        boolean stop() default false;
+        Class&amp;lt;?&amp;gt; testCase() default Void.class;
+        ElementType type() default ElementType.TYPE;
+        String[] reporteBy();
+    }
+`&lt;/pre&gt;
+
+## 元注解
+
+&lt;pre&gt;`元注解用于描述注解接口的行为属性，即用来限制其它注解的行为及范围。
+1、@Target元注解可以应用于一个注解，以限制该注解可以应用到那些项上。例如：
+    @Target({ElementType.TYPE, ElementType.METHOD})
+下面是所有可能的取值情况.它们属于枚举类型ElementType可以指定任意数量的元素类型，用括号括起来.
+    ANNOTATION_TYPE  注解类型声明
+    PACKAGE                   包
+    TYPE                           类（包括enum及接口（包括注解类型））
+    METHOD                    方法
+    CONSTRUCYOR         构造器
+    FIELD                          成员域（包括enum常量）
+    PARAMETER               方法或构造器参数
+    LOCAL_VARIABLE       本地变量
+
+2、@Retentiont元注解用于指定一条注解应该保留多长时间。其中默认值
+    RetentionPolicy.CLASS
+    SOURCE    不包括在类文件中的注解
+    CLASS       类文件中的注解，但是虚拟机不需要将他们载入
+    RUNTIME  类文件中的注解，并由虚拟机载入。通过反射API可获取它们。
+
+3、@Document元注解为像Javadoc这样的文档工具提供了一些提示。
+4、@Inherited元注解只能应用于对类的注解。如果一个类具有继承注解，那么它的所有子类都具有同样的注解。
+
+        &lt;div&gt;
+            作者：StruggleShu 发表于2017/6/16 21:59:42 [原文链接](http://blog.csdn.net/struggleshu/article/details/73351237)
+        &lt;/div&gt;
+        &lt;div&gt;
+        阅读：68 评论：0 [查看评论](http://blog.csdn.net/struggleshu/article/details/73351237#comments)
+        &lt;/div&gt;
+</code></pre>
       
     </div>
     
@@ -331,8 +407,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/15/转-Java多线程之Condition/" rel="next" title="[转]Java多线程之Condition">
-                <i class="fa fa-chevron-left"></i> [转]Java多线程之Condition
+              <a href="/2017/06/15/原-Java多线程之CountDwonLatch/" rel="next" title="[原]Java多线程之CountDwonLatch">
+                <i class="fa fa-chevron-left"></i> [原]Java多线程之CountDwonLatch
               </a>
             
           </div>
@@ -341,8 +417,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/10/10/hello/" rel="prev" title="hello">
-                hello <i class="fa fa-chevron-right"></i>
+              <a href="/2017/06/17/原-Java之泛型剖析/" rel="prev" title="[原]Java之泛型剖析">
+                [原]Java之泛型剖析 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -395,17 +471,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -449,22 +516,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

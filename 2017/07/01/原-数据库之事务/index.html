@@ -79,16 +79,18 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="定义事务是一组原子性的SQL查询，或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么就执行该组查询。如果其中一条语句因为崩溃或其他原因无法执行，那么多有的语句都不会执行。也就是说，事务内的语句，要么全部执行成功，要么全部执行失败。 通俗的讲，事务就是一件事情。是一个不可分割的整体，就像化学原子一样，是构成物质的最小单元。 `&amp;lt;/pre&amp;gt;  ## AC">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2017/10/10/hello-world/index.html">
+<meta property="og:title" content="[原]数据库之事务">
+<meta property="og:url" content="http://yoursite.com/2017/07/01/原-数据库之事务/index.html">
 <meta property="og:site_name" content="It&#39;s my blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta property="og:updated_time" content="2017-10-10T12:21:24.499Z">
+<meta property="og:description" content="定义事务是一组原子性的SQL查询，或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么就执行该组查询。如果其中一条语句因为崩溃或其他原因无法执行，那么多有的语句都不会执行。也就是说，事务内的语句，要么全部执行成功，要么全部执行失败。 通俗的讲，事务就是一件事情。是一个不可分割的整体，就像化学原子一样，是构成物质的最小单元。 `&amp;lt;/pre&amp;gt;  ## AC">
+<meta property="og:image" content="http://img.blog.csdn.net/20170701170355023?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU3RydWdnbGVTaHU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-10-11T13:25:03.416Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="[原]数据库之事务">
+<meta name="twitter:description" content="定义事务是一组原子性的SQL查询，或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么就执行该组查询。如果其中一条语句因为崩溃或其他原因无法执行，那么多有的语句都不会执行。也就是说，事务内的语句，要么全部执行成功，要么全部执行失败。 通俗的讲，事务就是一件事情。是一个不可分割的整体，就像化学原子一样，是构成物质的最小单元。 `&amp;lt;/pre&amp;gt;  ## AC">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170701170355023?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU3RydWdnbGVTaHU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 
 
 
@@ -118,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/10/10/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/01/原-数据库之事务/"/>
 
 
 
 
 
-  <title>Hello World | It's my blog</title>
+  <title>[原]数据库之事务 | It's my blog</title>
   
 
 
@@ -231,7 +233,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/10/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/01/原-数据库之事务/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shu.Zhou">
@@ -248,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">[原]数据库之事务</h1>
         
 
         <div class="post-meta">
@@ -260,8 +262,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-10T20:21:24+08:00">
-                2017-10-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-01T17:09:43+08:00">
+                2017-07-01
               </time>
             
 
@@ -298,16 +300,78 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><pre><code>事务是一组原子性的SQL查询，或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么就执行该组查询。如果其中一条语句因为崩溃或其他原因无法执行，那么多有的语句都不会执行。也就是说，事务内的语句，要么全部执行成功，要么全部执行失败。
+通俗的讲，事务就是一件事情。是一个不可分割的整体，就像化学原子一样，是构成物质的最小单元。
+`&lt;/pre&gt;
 
+## ACID
+
+&lt;pre&gt;`原子性（Atomicity）：一个事务被视为一个不可分割的最小工作单元，整个事务内的所有操作，要么全部执行，要么全部失败回滚，不可能只执行其中的一部分。
+一致性（Consistency）:即执行完数据库操作后，数据不会被破坏。比如A账户转账给B账户，不能因为A账户扣了钱，而B账户没有扣钱。
+隔离性（Isolation）:通常来说，一个事务所做的修改在最终提交以前，对其他事务是不可见的。这里需要注意隔离级别，之后会详细讲。
+持久性（Durability）：一旦事务提交，则其所做的修改就会永久保存到数据库中。
+`&lt;/pre&gt;
+
+## 隔离级别
+
+&lt;pre&gt;`READ_UNCOMMITTED（未提交读）
+READ_COMMITTED（提交读）
+REPEATABLE_READ（可重复读）
+SERIALIZABLE（可串行化）
+从上往下，级别越来越高，并发性能越来越差，安全性越来越高。
+之所以定义这几种级别，主要是为了解决数据在高并发行下产生的问题：
+脏读（Dirty Read）
+不可重复读（Unrepeatable Read）
+幻读（Phantom Read）
+`&lt;/pre&gt;
+
+## 脏读
+
+&lt;pre&gt;`                          并发执行的两个事务
+`&lt;/pre&gt;
+
+![这里写图片描述](http://img.blog.csdn.net/20170701163031771?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU3RydWdnbGVTaHU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
+&lt;pre&gt;`余额应该为1500元才对。在T5时间点，事务A此时查询余额为0元，这个数据就是脏数据，它是事务B造成的，明显事务没有隔离，乱套了。
+所以脏读这件事情造成的后果非常严重，一定要解决。必须让事务隔离起来。
+`&lt;/pre&gt;
+
+## 不可重复读
+
+&lt;pre&gt;`                              不可重复读示例
+`&lt;/pre&gt;
+
+![这里写图片描述](http://img.blog.csdn.net/20170701163651974?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU3RydWdnbGVTaHU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
+&lt;pre&gt;`事务A其实除了查询了两次以外，其他什么事情都没有做，结果钱及从1000变成0了，这就是重复读。其实这样也是合理的，毕竟实务B提交了事务，将数据库结果进行了持久化，所以事务A再次读取时就自然发生了变化。
+这种现象基本是可以理解的，但有些特殊场景下却是不允许的。毕竟这种现象也是事务之间没有隔离所造成的。
+`&lt;/pre&gt;
+
+## 幻读
+
+&lt;pre&gt;`                               幻读示例
+`&lt;/pre&gt;
+
+![这里写图片描述](http://img.blog.csdn.net/20170701164921798?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU3RydWdnbGVTaHU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
+&lt;pre&gt;`事务A在T3时刻和T6时刻统计的总存款数不同，这就是幻读。虽然看起来正常，但在一些要求严格的系统中，比如银行，这是不允许的。
+`&lt;/pre&gt;
+
+## 总结
+
+&lt;pre&gt;`脏读：事务A读取了事务B未提交的数据，并在这个基础上又做了其它操作。
+不可重复读：事务A读取了事务B已提交的更改数据。
+幻读：事务A读取了事务B已提交的新增数据。
+
+                        事务隔离级别
+</code></pre><p><img src="http://img.blog.csdn.net/20170701170355023?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU3RydWdnbGVTaHU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<pre><code>&lt;div&gt;
+    作者：StruggleShu 发表于2017/7/1 17:09:43 [原文链接](http://blog.csdn.net/struggleshu/article/details/74075098)
+&lt;/div&gt;
+&lt;div&gt;
+阅读：366 评论：0 [查看评论](http://blog.csdn.net/struggleshu/article/details/74075098#comments)
+&lt;/div&gt;
+</code></pre>
       
     </div>
     
@@ -331,8 +395,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/15/转-Java多线程之Condition/" rel="next" title="[转]Java多线程之Condition">
-                <i class="fa fa-chevron-left"></i> [转]Java多线程之Condition
+              <a href="/2017/06/28/原-Java多线程之ThreadLocal/" rel="next" title="[原]Java多线程之ThreadLocal">
+                <i class="fa fa-chevron-left"></i> [原]Java多线程之ThreadLocal
               </a>
             
           </div>
@@ -341,8 +405,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/10/10/hello/" rel="prev" title="hello">
-                hello <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/10/原-JConsole的远程连接/" rel="prev" title="[原]JConsole的远程连接">
+                [原]JConsole的远程连接 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -459,7 +523,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a></li></ol></div>
             
 
           </div>

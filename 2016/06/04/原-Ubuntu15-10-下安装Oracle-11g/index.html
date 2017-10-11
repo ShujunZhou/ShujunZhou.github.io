@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="学Oracle数据库之前，首先面临的是安装数据库Oracle数据库，前几天在ubuntu下安装好了，现在总结一下安装过程. 系统信息：ubuntu15.10桌面版，linux内核版本4.2.0-36-generic((终端输入uname -r 可查看内核版本) (ps:此信息仅供参考) &amp;lt;span class=&amp;quot;hljs-number&amp;quot;&amp;gt;1&amp;lt;/span&amp;gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[原]Ubuntu15.10 下安装Oracle 11g">
+<meta property="og:url" content="http://yoursite.com/2016/06/04/原-Ubuntu15-10-下安装Oracle-11g/index.html">
+<meta property="og:site_name" content="It&#39;s my blog">
+<meta property="og:description" content="学Oracle数据库之前，首先面临的是安装数据库Oracle数据库，前几天在ubuntu下安装好了，现在总结一下安装过程. 系统信息：ubuntu15.10桌面版，linux内核版本4.2.0-36-generic((终端输入uname -r 可查看内核版本) (ps:此信息仅供参考) &amp;lt;span class=&amp;quot;hljs-number&amp;quot;&amp;gt;1&amp;lt;/span&amp;gt;">
+<meta property="og:updated_time" content="2017-10-11T13:25:03.417Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[原]Ubuntu15.10 下安装Oracle 11g">
+<meta name="twitter:description" content="学Oracle数据库之前，首先面临的是安装数据库Oracle数据库，前几天在ubuntu下安装好了，现在总结一下安装过程. 系统信息：ubuntu15.10桌面版，linux内核版本4.2.0-36-generic((终端输入uname -r 可查看内核版本) (ps:此信息仅供参考) &amp;lt;span class=&amp;quot;hljs-number&amp;quot;&amp;gt;1&amp;lt;/span&amp;gt;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/06/04/原-Ubuntu15-10-下安装Oracle-11g/"/>
+
+
+
+
+
+  <title>[原]Ubuntu15.10 下安装Oracle 11g | It's my blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">It's my blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Java</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/04/原-Ubuntu15-10-下安装Oracle-11g/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu.Zhou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="It's my blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[原]Ubuntu15.10 下安装Oracle 11g</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-04T21:07:38+08:00">
+                2016-06-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>学Oracle数据库之前，首先面临的是安装数据库Oracle数据库，前几天在ubuntu下安装好了，现在总结一下安装过程.</p>
+<p>系统信息：ubuntu15.10桌面版，linux内核版本4.2.0-36-generic((终端输入uname -r 可查看内核版本) (ps:此信息仅供参考)</p>
+<pre><code>&lt;span class=&quot;hljs-number&quot;&gt;1&lt;/span&gt;.前提工作`&lt;/pre&gt;
+
+&lt;pre&gt;`1.1下载Oracle 11g R2 Express Edition和Oracle SQL Developer
+Oralce 11g: http://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/index.html
+1.2检查交换分区
+我的机子之前交换分区是2G，结果安装时显示交换分区大小不足，然后就又增加了2G(之后安装时问题解决)
+1.2.1增加交换分区的方法(若不存在此问题，请跳过)
+    1.查看当前swap分区的状态
+    cat /proc/meminfo (或者执行 free -m可查看当前交换分区的大小)
+    SwapTotal: 0KB
+    SwapFree: 0KB
+    如果上边两项都为0，说明没有swap分区；否则，说明有此分区
+    2.如果没有swap分区，则先创建。在&quot;/&quot;目录下执行如下指令
+    A. sudo dd if=/dev/zero of=swap.disk bs=1M count=4k (如果要创建4G则count=4k；这步比较慢)
+    B. sudo mkswap -f swap.disk
+    C. sudo swapon swap.disk
+    3.如果有，但交换分区不足(不满足装Oracle 11g所需空间)的，则可以在用户目录下(/home/user)下执行如下命令
+    A.mkdir swap
+    B.cd swap
+    C.sudo dd if=/dev/zero of=swapfile bs=1024 count=100000
+    上面命令中的count即代表要增加的swap文件的大小，执行后会出现如下提示：
+    记录了 100000+0 的读入
+    记录了 100000+0 的写出
+    102400000 字节 (102MB) 已复制， 0.64223 秒， 142MB/秒
+    D.把生成的文件转换成Swap文件
+    sudo mkswap swapfile  
+    Setting up swapspace version 1, size = 102395 kB  
+    no label, UUID=09fde987-5567-498a-a60b-477e302a988b  
+    E.激活swap分区
+    sudo swapon swapfile
+    F.再次(free -m)查看交换分区大小
+`&lt;/pre&gt;
+
+&lt;pre class=&quot;prettyprint&quot;&gt;`2.解压并安装需要的软件`&lt;/pre&gt;
+
+&lt;pre&gt;`A.解压：unzip oracle-xe-11.2.0-1.0.x86_64.rpm.zip
+B.将.rmp文件转换为.deb文件: sudo alien --scripts -d oracle-xe-11.2.0-1.0.x86_64.rpm (过程比较慢，等待一会)
+`&lt;/pre&gt;
+
+&lt;pre class=&quot;prettyprint&quot;&gt;`3.创建所需文件并设置权限`&lt;/pre&gt;
+
+&lt;pre&gt;`A.创建文件：sudo vim /sbin/chkconfig
+文件内容
+1.#!/bin/bash
+2.# Oracle 11gR2 XE installer chkconfig hack for Ubuntu
+3.file=/etc/init.d/oracle-xe
+4.if [[ ! `tail -n1 $file | grep INIT` ]]; then
+5.echo &amp;gt;&amp;gt; $file
+6.echo &apos;### BEGIN INIT INFO&apos; &amp;gt;&amp;gt; $file
+7.echo &apos;# Provides: OracleXE&apos; &amp;gt;&amp;gt; $file
+8.echo &apos;# Required-Start: $remote_fs $syslog&apos; &amp;gt;&amp;gt; $file
+9.echo &apos;# Required-Stop: $remote_fs $syslog&apos; &amp;gt;&amp;gt; $file
+10.echo &apos;# Default-Start: 2 3 4 5&apos; &amp;gt;&amp;gt; $file
+11.echo &apos;# Default-Stop: 0 1 6&apos; &amp;gt;&amp;gt; $file
+12.echo &apos;# Short-Description: Oracle 11g Express Edition&apos; &amp;gt;&amp;gt; $file
+13.echo &apos;### END INIT INFO&apos; &amp;gt;&amp;gt; $file
+14.fi
+15.update-rc.d oracle-xe defaults 80 01
+`&lt;/pre&gt;
+
+&lt;pre class=&quot;prettyprint&quot;&gt;`B.设置权限：chmod &lt;span class=&quot;hljs-number&quot;&gt;755&lt;/span&gt; /sbin/chkconfig
+C.创建文件：sudo vim /etc/sysctl&lt;span class=&quot;hljs-preprocessor&quot;&gt;.d&lt;/span&gt;/&lt;span class=&quot;hljs-number&quot;&gt;60&lt;/span&gt;-oracle&lt;span class=&quot;hljs-preprocessor&quot;&gt;.conf&lt;/span&gt; 
+    文件内容：
+    &lt;span class=&quot;hljs-preprocessor&quot;&gt;#racle 11g XE kernel parameters  &lt;/span&gt;
+    fs&lt;span class=&quot;hljs-preprocessor&quot;&gt;.file&lt;/span&gt;-max=&lt;span class=&quot;hljs-number&quot;&gt;6815744&lt;/span&gt;  
+    net&lt;span class=&quot;hljs-preprocessor&quot;&gt;.ipv&lt;/span&gt;4&lt;span class=&quot;hljs-preprocessor&quot;&gt;.ip&lt;/span&gt;_local_port_range=&lt;span class=&quot;hljs-number&quot;&gt;9000&lt;/span&gt; &lt;span class=&quot;hljs-number&quot;&gt;65000&lt;/span&gt;  
+    kernel&lt;span class=&quot;hljs-preprocessor&quot;&gt;.sem&lt;/span&gt;=&lt;span class=&quot;hljs-number&quot;&gt;250&lt;/span&gt; &lt;span class=&quot;hljs-number&quot;&gt;32000&lt;/span&gt; &lt;span class=&quot;hljs-number&quot;&gt;100&lt;/span&gt; &lt;span class=&quot;hljs-number&quot;&gt;128&lt;/span&gt; 
+    kernel&lt;span class=&quot;hljs-preprocessor&quot;&gt;.shmmax&lt;/span&gt;=&lt;span class=&quot;hljs-number&quot;&gt;536870912&lt;/span&gt;
+
+D.接着执行以下命令`&lt;/pre&gt;
+
+&lt;pre&gt;`sudo cat /etc/sysctl.d/60-oracle.conf
+
+sudo service procps start
+
+sudo sysctl -q fs.file-max
+将会输出：-&amp;gt; fs.file-max = 6815744 （数值不一定相等）
+`&lt;/pre&gt;
+
+&lt;pre class=&quot;prettyprint&quot;&gt;`4.创建文件链接（如果是再次重装，这里可能显示已存在，那就接着往下）`&lt;/pre&gt;
+
+&lt;pre&gt;`ln -s /usr/bin/awk /bin/awk
+
+mkdir /var/lock/subsys
+
+touch /var/lock/subsys/listener
+`&lt;/pre&gt;
+
+&lt;pre class=&quot;prettyprint&quot;&gt;`5.安装Oracle`&lt;/pre&gt;
+
+&lt;pre&gt;`sudo dpkg --install oracle-xe_11.2.0-2_amd64.deb
+`&lt;/pre&gt;
+
+&lt;pre class=&quot;prettyprint&quot;&gt;`6.创建配置`&lt;/pre&gt;
+
+&lt;pre&gt;`sudo /etc/init.d/oracle-xe configure
+之后，会引导用户进行简单的几项设置：
+Oracle Database 11g Express Edition Configuration
+-————————————————
+This will configure on-boot properties of Oracle Database 11g Express
+Edition. The following questions will determine whether the database should
+be starting upon system boot, the ports it will use, and the passwords that
+will be used for database accounts. Press to accept the defaults.
+Ctrl-C will abort.
+Specify the HTTP port that will be used for Oracle Application Express [8080]:8081
+Specify a port that will be used for the database listener [1521]:1521
+Specify a password to be used for database accounts. Note that the same
+password will be used for SYS and SYSTEM. Oracle recommends the use of
+different passwords for each database account. This can be done after
+initial configuration:
+Confirm the password:
+Do you want Oracle Database 11g Express Edition to be started on boot (y/n) [y]:y
+Starting Oracle Net Listener…Done
+Configuring database…Done
+Starting Oracle Database 11g Express Edition instance…Done
+Installation completed successfully.
+`&lt;/pre&gt;
+
+&lt;pre class=&quot;prettyprint&quot;&gt;`输入的四项内容是：`&lt;/pre&gt;
+
+&lt;pre&gt;`http访问时的端口
+数据库的监听端口
+SYS和SYSTEM用户的密码
+是否开机启动（并没有开机启动，可能还有地方要设置）。
+`&lt;/pre&gt;
+
+&lt;pre class=&quot;prettyprint&quot;&gt;`安装完成后：`&lt;/pre&gt;
+
+&lt;pre&gt;`会自动建立一个名为oracle的用户，家目录/u01/app/oracle。
+会建立dba组，oracle用户属于这个组。
+会自动生成一个数据库实例，名为XE。/u01/app/oracle/product/11.2.0/xe/dbs/spfileXE.ora
+`&lt;/pre&gt;
+
+&lt;pre class=&quot;prettyprint&quot;&gt;`7.配置环境变量`&lt;/pre&gt;
+
+&lt;pre&gt;`vi /etc/profile   
+加入
+
+export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe
+export ORACLE_SID=XE
+export NLS_LANG=`$ORACLE_HOME/bin/nls_lang.sh`
+export ORACLE_BASE=/u01/app/oracle
+export LD_LIBRARY_PATH=$ORACLE_HOME/lib:$LD_LIBRARY_PATH
+export PATH=$ORACLE_HOME/bin:$PATH
+
+接着执行：
+source /etc/profile
+`&lt;/pre&gt;
+
+&lt;pre class=&quot;prettyprint&quot;&gt;`8.启动Orcale`&lt;/pre&gt;
+
+&lt;pre&gt;`sudo service oracle-xe start
+
+Oracle Database 11g Express Edition instance is already started.
+`&lt;/pre&gt;
+
+&lt;pre class=&quot;prettyprint&quot;&gt;`9.登录Orcale`&lt;/pre&gt;
+
+&lt;pre&gt;`sqlplus sys as sysdba
+
+        &lt;div&gt;
+            作者：StruggleShu 发表于2016/6/4 21:07:38 [原文链接](http://blog.csdn.net/struggleshu/article/details/51586103)
+        &lt;/div&gt;
+        &lt;div&gt;
+        阅读：1274 评论：0 [查看评论](http://blog.csdn.net/struggleshu/article/details/51586103#comments)
+        &lt;/div&gt;
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/09/原-二分查找的非递归和递归例程实现/" rel="next" title="[原]二分查找的非递归和递归例程实现">
+                <i class="fa fa-chevron-left"></i> [原]二分查找的非递归和递归例程实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/11/原-JSON字符串，JSON对象，JSON数组/" rel="prev" title="[原]JSON字符串，JSON对象，JSON数组">
+                [原]JSON字符串，JSON对象，JSON数组 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Shu.Zhou</p>
+              <p class="site-description motion-element" itemprop="description">��������</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shu.Zhou</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -79,16 +79,16 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="二分查找：定义一个整数X，和整数A(0)，A(1)，A(2)，……A(N-1),后者已经预先排序并在内存中，求使得Ai=X的下标i,如果X不存在，则返回-1。 策略：验证X是否是居中的,如果是，则答案找到。如果X小于居中元素，应用同样的策略于居中元素左边已排序的子序列;同理，如果大于居中元素，那么就检查数据的右半部分。  二分查找的非递归实现(复杂度O(logN)) int BinarySearc">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2017/10/10/hello-world/index.html">
+<meta property="og:title" content="[原]二分查找的非递归和递归例程实现">
+<meta property="og:url" content="http://yoursite.com/2016/05/09/原-二分查找的非递归和递归例程实现/index.html">
 <meta property="og:site_name" content="It&#39;s my blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta property="og:updated_time" content="2017-10-10T12:21:24.499Z">
+<meta property="og:description" content="二分查找：定义一个整数X，和整数A(0)，A(1)，A(2)，……A(N-1),后者已经预先排序并在内存中，求使得Ai=X的下标i,如果X不存在，则返回-1。 策略：验证X是否是居中的,如果是，则答案找到。如果X小于居中元素，应用同样的策略于居中元素左边已排序的子序列;同理，如果大于居中元素，那么就检查数据的右半部分。  二分查找的非递归实现(复杂度O(logN)) int BinarySearc">
+<meta property="og:updated_time" content="2017-10-11T13:25:03.417Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="[原]二分查找的非递归和递归例程实现">
+<meta name="twitter:description" content="二分查找：定义一个整数X，和整数A(0)，A(1)，A(2)，……A(N-1),后者已经预先排序并在内存中，求使得Ai=X的下标i,如果X不存在，则返回-1。 策略：验证X是否是居中的,如果是，则答案找到。如果X小于居中元素，应用同样的策略于居中元素左边已排序的子序列;同理，如果大于居中元素，那么就检查数据的右半部分。  二分查找的非递归实现(复杂度O(logN)) int BinarySearc">
 
 
 
@@ -118,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/10/10/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/05/09/原-二分查找的非递归和递归例程实现/"/>
 
 
 
 
 
-  <title>Hello World | It's my blog</title>
+  <title>[原]二分查找的非递归和递归例程实现 | It's my blog</title>
   
 
 
@@ -231,7 +231,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/10/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/09/原-二分查找的非递归和递归例程实现/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shu.Zhou">
@@ -248,7 +248,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">[原]二分查找的非递归和递归例程实现</h1>
         
 
         <div class="post-meta">
@@ -260,8 +260,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-10T20:21:24+08:00">
-                2017-10-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-05-09T22:06:15+08:00">
+                2016-05-09
               </time>
             
 
@@ -298,16 +298,57 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
+        <p><span style="font-size:18px">二分查找：定义一个整数X，和整数A(0)，A(1)，A(2)，……A(N-1),后者已经预先排序并在内存中，求使得Ai=X的下标<em>i,如果X不存在，则返回-1。</em></span></p>
+<p><span style="font-size:18px"><em>策略：验证X是否是居中的,如果是，则答案找到。如果X小于居中元素，应用同样的策略于居中元素左边已排序的子序列;同理，如果大于居中元素，那么就检查数据的右半部分。</em></span></p>
+<p></p>
+<p><span style="font-size:18px">二分查找的非递归实现(复杂度O(logN))</span></p>
+<p><span style="font-size:18px">int BinarySearch(<span style="font-size:18px">ElementType</span> a[],<br><span style="font-size:18px">ElementType</span> x, int N)</span></p>
+<p>{</p>
+<p>&nbsp;&nbsp;&nbsp; int Low, Mid, High;</p>
+<p>&nbsp;&nbsp;&nbsp; Low = 0;</p>
+<p>&nbsp;&nbsp;&nbsp; High = N - 1;</p>
+<p>&nbsp;&nbsp;&nbsp; while(Low &lt;= High)</p>
+<p>&nbsp;&nbsp;&nbsp; {</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Mid = (Low &#43; High) / 2;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (a[Mid] &lt; x)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Low = Mid &#43; 1;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (a[Mid] &gt; x)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; High = Mid -1;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return Mid;</p>
+<p>&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; return notFound;</p>
+<p>}</p>
+<p></p>
+<p><span style="font-size:18px">二分查找的递归实现<span style="font-size:18px">(复杂度O(logN))</span></span></p>
+<p><span style="font-size:18px">int BinarySearch(const ElementType a[], <span style="font-size:18px"><br>ElementType</span> data, int Low, int High)</span></p>
+<p>{</p>
+<p>&nbsp;&nbsp; &nbsp;int mid = (Low &#43; High) / 2;</p>
+<p>&nbsp;&nbsp; &nbsp;if (data == a[mid])</p>
+<p>&nbsp;&nbsp; &nbsp;{</p>
+<p>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;return mid;</p>
+<p>&nbsp;&nbsp; &nbsp;}</p>
+<p>&nbsp;&nbsp; &nbsp;else if (data &lt; a[mid])</p>
+<p>&nbsp;&nbsp; &nbsp;{</p>
+<p>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;return BinarySearch(a, data, Low, mid - 1);</p>
+<p>&nbsp;&nbsp; &nbsp;}</p>
+<p>&nbsp;&nbsp; &nbsp;else if (data &gt; a[mid])</p>
+<p>&nbsp;&nbsp; &nbsp;{</p>
+<p>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;return BinarySearch(a, data, mid &#43; 1, High);</p>
+<p>&nbsp;&nbsp; &nbsp;}</p>
+<p>&nbsp;&nbsp; &nbsp;else </p>
+<p>&nbsp;&nbsp; &nbsp;{</p>
+<p>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;return notFound;</p>
+<p>&nbsp;&nbsp; &nbsp;}</p>
+<p>}</p>
+<p></p>
+<pre><code>&lt;div&gt;
+    作者：StruggleShu 发表于2016/5/9 22:06:15 [原文链接](http://blog.csdn.net/struggleshu/article/details/51356666)
+&lt;/div&gt;
+&lt;div&gt;
+阅读：424 评论：0 [查看评论](http://blog.csdn.net/struggleshu/article/details/51356666#comments)
+&lt;/div&gt;
+</code></pre>
       
     </div>
     
@@ -331,8 +372,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/15/转-Java多线程之Condition/" rel="next" title="[转]Java多线程之Condition">
-                <i class="fa fa-chevron-left"></i> [转]Java多线程之Condition
+              <a href="/2016/05/02/原-C语言中一类特殊的数组越界！！/" rel="next" title="[原]C语言中一类特殊的数组越界！！">
+                <i class="fa fa-chevron-left"></i> [原]C语言中一类特殊的数组越界！！
               </a>
             
           </div>
@@ -341,8 +382,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/10/10/hello/" rel="prev" title="hello">
-                hello <i class="fa fa-chevron-right"></i>
+              <a href="/2016/06/04/原-Ubuntu15-10-下安装Oracle-11g/" rel="prev" title="[原]Ubuntu15.10 下安装Oracle 11g">
+                [原]Ubuntu15.10 下安装Oracle 11g <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -395,17 +436,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -449,22 +481,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
