@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="jvm," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -80,14 +80,13 @@
 
 
 <meta name="description" content="JConsole是基于JMX的可视化监视、管理工具。可以很方便的监视本地及远程服务器的java进程的内存使用情况。下面介绍如何连接远程服务器，进行远程java程序的监控。 ##1、使用hostname -i 查看远程主机的hostname。如果显示为 127.0.0.1，需要进行修改。vim /etc/hosts修改127.0.0.0.1 为服务器真实的外网ip。 ##2、被监控的程序运行时给虚拟">
-<meta name="keywords" content="jvm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JConsole的远程连接">
 <meta property="og:url" content="http://yoursite.com/2017/10/12/JConsole的远程连接/index.html">
-<meta property="og:site_name" content="technical life">
+<meta property="og:site_name" content="Technical Life">
 <meta property="og:description" content="JConsole是基于JMX的可视化监视、管理工具。可以很方便的监视本地及远程服务器的java进程的内存使用情况。下面介绍如何连接远程服务器，进行远程java程序的监控。 ##1、使用hostname -i 查看远程主机的hostname。如果显示为 127.0.0.1，需要进行修改。vim /etc/hosts修改127.0.0.0.1 为服务器真实的外网ip。 ##2、被监控的程序运行时给虚拟">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-10-12T07:06:33.511Z">
+<meta property="og:updated_time" content="2017-10-12T07:15:08.644Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JConsole的远程连接">
 <meta name="twitter:description" content="JConsole是基于JMX的可视化监视、管理工具。可以很方便的监视本地及远程服务器的java进程的内存使用情况。下面介绍如何连接远程服务器，进行远程java程序的监控。 ##1、使用hostname -i 查看远程主机的hostname。如果显示为 127.0.0.1，需要进行修改。vim /etc/hosts修改127.0.0.0.1 为服务器真实的外网ip。 ##2、被监控的程序运行时给虚拟">
@@ -100,7 +99,7 @@
     root: '/',
     scheme: 'Gemini',
     version: '5.1.3',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -126,7 +125,7 @@
 
 
 
-  <title>JConsole的远程连接 | technical life</title>
+  <title>JConsole的远程连接 | Technical Life</title>
   
 
 
@@ -156,12 +155,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">technical life</span>
+        <span class="site-title">Technical Life</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle">Java, NetWork, protocol, jvm, database, IO, Linux, frame, algorithm</p>
+        <h1 class="site-subtitle" itemprop="description">java, network, database, linux, algorithm</h1>
       
   </div>
 
@@ -186,17 +185,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            Über
+            Home
           </a>
         </li>
       
@@ -216,17 +205,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
-            Kategorien
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archiv
+            Categories
           </a>
         </li>
       
@@ -237,16 +216,6 @@
               <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
             
             Schedule
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-sitemap">
-          <a href="sitemap.xml" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
-            
-            Sitemap
           </a>
         </li>
       
@@ -292,7 +261,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="technical life">
+      <meta itemprop="name" content="Technical Life">
     </span>
 
     
@@ -300,7 +269,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JConsole的远程连接</h1>
+          <h2 class="post-title" itemprop="name headline">JConsole的远程连接</h2>
         
 
         <div class="post-meta">
@@ -310,9 +279,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-12T15:02:03+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-12T00:00:00+08:00">
                 2017-10-12
               </time>
             
@@ -369,12 +338,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="../../../../tags/jvm/" rel="tag"># jvm</a>
-          
-        </div>
-      
 
       
       
@@ -423,6 +386,8 @@
 
   <aside id="sidebar" class="sidebar">
     
+      <div id="sidebar-dimmer"></div>
+    
     <div class="sidebar-inner">
 
       
@@ -434,7 +399,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">Shu.Zhou</p>
-              <p class="site-description motion-element" itemprop="description">水滴石穿，非一日之功</p>
+              <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
           <nav class="site-state motion-element">
@@ -442,10 +407,10 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="../../../../archives/">
+                <a href="../../../../archives">
               
                   <span class="site-state-item-count">1</span>
-                  <span class="site-state-item-name">Artikel</span>
+                  <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
@@ -453,21 +418,20 @@
             
 
             
-              
-              
-              <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">1</span>
-                  <span class="site-state-item-name">Tags</span>
-                
-              </div>
-            
 
           </nav>
 
           
 
           <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/ShujunZhou" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
             
           </div>
 
@@ -506,7 +470,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
@@ -534,6 +498,8 @@
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     
