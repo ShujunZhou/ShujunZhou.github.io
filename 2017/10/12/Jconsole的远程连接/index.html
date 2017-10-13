@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Technical Life">
 <meta property="og:description" content="JConsole是基于JMX的可视化监视、管理工具。可以很方便的监视本地及远程服务器的java进程的内存使用情况。下面介绍如何连接远程服务器，进行远程java程序的监控。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-13T10:55:14.974Z">
+<meta property="og:updated_time" content="2017-10-13T11:26:37.637Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jconsole的远程连接">
 <meta name="twitter:description" content="JConsole是基于JMX的可视化监视、管理工具。可以很方便的监视本地及远程服务器的java进程的内存使用情况。下面介绍如何连接远程服务器，进行远程java程序的监控。">
@@ -341,10 +341,8 @@
 
       
         <p> JConsole是基于JMX的可视化监视、管理工具。可以很方便的监视本地及远程服务器的java进程的内存使用情况。下面介绍如何连接远程服务器，进行远程java程序的监控。<br><a id="more"></a></p>
-<p>##1、使用hostname -i 查看远程主机的hostname</p>
-<p>如果显示为 127.0.0.1，需要进行修改。<br>vim /etc/hosts<br>修改127.0.0.0.1 为服务器真实的外网ip。</p>
-<p>##2、被监控的程序运行时给虚拟机添加一些运行的参数</p>
-<p>无需认证的远程监控配置<br>-Dcom.sun.management.jmxremote.port=60001   //监控的端口号<br>-Dcom.sun.management.jmxremote.authenticate=false   //关闭认证<br>-Dcom.sun.management.jmxremote.ssl=false<br>-Djava.rmi.server.hostname=192.168.1.50<br>其中-Djava.rmi.server.hostname为上一步修改后主机的外网真实ip（可以使用hostname -i查看）,其中监控的端口号可以自己定义，在远程连接的时候会用到<br>设置需要密码的远程登陆配置<br>-Dcom.sun.management.jmxremote.port=60001<br>-Dcom.sun.management.jmxremote.authenticate=true<br>-Dcom.sun.management.jmxremote.ssl=false<br>-Dcom.sun.management.jmxremote.pwd.file= {jmxremote.password}Path<br>-Djava.rmi.server.hostname=192.168.1.50<br>在/usr/lib/jvm/java-8-oracle/jre/lib/management下的jmxremote.access、jmxremote.password。<br>jmxremote.access中存储用户名和对应的权限关系。<br>jmxremote.password中存储用户名密码。<br>注：在jmxremote.password和jmxremote.access的权限为600，所有者rw权限。</p>
+<h2 id="1、使用hostname-i-查看远程主机的hostname"><a href="#1、使用hostname-i-查看远程主机的hostname" class="headerlink" title="1、使用hostname -i 查看远程主机的hostname"></a>1、使用hostname -i 查看远程主机的hostname</h2><p>如果显示为 127.0.0.1，需要进行修改。<br>vim /etc/hosts<br>修改127.0.0.0.1 为服务器真实的外网ip。</p>
+<h2 id="2、被监控的程序运行时给虚拟机添加一些运行的参数"><a href="#2、被监控的程序运行时给虚拟机添加一些运行的参数" class="headerlink" title="2、被监控的程序运行时给虚拟机添加一些运行的参数"></a>2、被监控的程序运行时给虚拟机添加一些运行的参数</h2><p>无需认证的远程监控配置<br>-Dcom.sun.management.jmxremote.port=60001   //监控的端口号<br>-Dcom.sun.management.jmxremote.authenticate=false   //关闭认证<br>-Dcom.sun.management.jmxremote.ssl=false<br>-Djava.rmi.server.hostname=192.168.1.50<br>其中-Djava.rmi.server.hostname为上一步修改后主机的外网真实ip（可以使用hostname -i查看）,其中监控的端口号可以自己定义，在远程连接的时候会用到<br>设置需要密码的远程登陆配置<br>-Dcom.sun.management.jmxremote.port=60001<br>-Dcom.sun.management.jmxremote.authenticate=true<br>-Dcom.sun.management.jmxremote.ssl=false<br>-Dcom.sun.management.jmxremote.pwd.file= {jmxremote.password}Path<br>-Djava.rmi.server.hostname=192.168.1.50<br>在/usr/lib/jvm/java-8-oracle/jre/lib/management下的jmxremote.access、jmxremote.password。<br>jmxremote.access中存储用户名和对应的权限关系。<br>jmxremote.password中存储用户名密码。<br>注：在jmxremote.password和jmxremote.access的权限为600，所有者rw权限。</p>
 <p>##3、远程连接</p>
 <p>选择远程进程<br>hostname 即为 服务器外网真实ip，端口号为刚才设置的端口号（注意不要冲突），用户名即为主机用户名，密码如果采用无需认证链接则不需要，否则，填入自己设置的密码。点击连接，即可。（没认证会显示不安全，直接连接即可）</p>
 
@@ -419,8 +417,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -494,6 +501,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、使用hostname-i-查看远程主机的hostname"><span class="nav-text">1、使用hostname -i 查看远程主机的hostname</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、被监控的程序运行时给虚拟机添加一些运行的参数"><span class="nav-text">2、被监控的程序运行时给虚拟机添加一些运行的参数</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
