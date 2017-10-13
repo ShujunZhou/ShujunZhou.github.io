@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="JConsole是基于JMX的可视化监视、管理工具。可以很方便的监视本地及远程服务器的java进程的内存使用情况。下面介绍如何连接远程服务器，进行远程java程序的监控。 ##1、使用hostname -i 查看远程主机的hostname。 如果显示为 127.0.0.1，需要进行修改。vim /etc/hosts修改127.0.0.0.1 为服务器真实的外网ip。">
+<meta name="description" content="JConsole是基于JMX的可视化监视、管理工具。可以很方便的监视本地及远程服务器的java进程的内存使用情况。下面介绍如何连接远程服务器，进行远程java程序的监控。">
 <meta name="keywords" content="jvm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JConsole的远程连接">
 <meta property="og:url" content="https://shujunzhou.github.io/2017/10/12/JConsole的远程连接/index.html">
 <meta property="og:site_name" content="Technical Life">
-<meta property="og:description" content="JConsole是基于JMX的可视化监视、管理工具。可以很方便的监视本地及远程服务器的java进程的内存使用情况。下面介绍如何连接远程服务器，进行远程java程序的监控。 ##1、使用hostname -i 查看远程主机的hostname。 如果显示为 127.0.0.1，需要进行修改。vim /etc/hosts修改127.0.0.0.1 为服务器真实的外网ip。">
+<meta property="og:description" content="JConsole是基于JMX的可视化监视、管理工具。可以很方便的监视本地及远程服务器的java进程的内存使用情况。下面介绍如何连接远程服务器，进行远程java程序的监控。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-13T06:10:37.538Z">
+<meta property="og:updated_time" content="2017-10-13T08:23:39.238Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JConsole的远程连接">
-<meta name="twitter:description" content="JConsole是基于JMX的可视化监视、管理工具。可以很方便的监视本地及远程服务器的java进程的内存使用情况。下面介绍如何连接远程服务器，进行远程java程序的监控。 ##1、使用hostname -i 查看远程主机的hostname。 如果显示为 127.0.0.1，需要进行修改。vim /etc/hosts修改127.0.0.0.1 为服务器真实的外网ip。">
+<meta name="twitter:description" content="JConsole是基于JMX的可视化监视、管理工具。可以很方便的监视本地及远程服务器的java进程的内存使用情况。下面介绍如何连接远程服务器，进行远程java程序的监控。">
 
 
 
@@ -340,9 +340,9 @@
       
 
       
-        <p>JConsole是基于JMX的可视化监视、管理工具。可以很方便的监视本地及远程服务器的java进程的内存使用情况。下面介绍如何连接远程服务器，进行远程java程序的监控。</p>
+        <p>JConsole是基于JMX的可视化监视、管理工具。可以很方便的监视本地及远程服务器的java进程的内存使用情况。下面介绍如何连接远程服务器，进行远程java程序的监控。<br><a id="more"></a></p>
 <pre><code>##1、使用hostname -i 查看远程主机的hostname。
-</code></pre><p>如果显示为 127.0.0.1，需要进行修改。<br>vim /etc/hosts<br>修改127.0.0.0.1 为服务器真实的外网ip。<br><a id="more"></a></p>
+</code></pre><p>如果显示为 127.0.0.1，需要进行修改。<br>vim /etc/hosts<br>修改127.0.0.0.1 为服务器真实的外网ip。</p>
 <pre><code>##2、被监控的程序运行时给虚拟机添加一些运行的参数
 </code></pre><p>无需认证的远程监控配置<br>-Dcom.sun.management.jmxremote.port=60001   //监控的端口号<br>-Dcom.sun.management.jmxremote.authenticate=false   //关闭认证<br>-Dcom.sun.management.jmxremote.ssl=false<br>-Djava.rmi.server.hostname=192.168.1.50<br>其中-Djava.rmi.server.hostname为上一步修改后主机的外网真实ip（可以使用hostname -i查看）,其中监控的端口号可以自己定义，在远程连接的时候会用到<br>设置需要密码的远程登陆配置<br>-Dcom.sun.management.jmxremote.port=60001<br>-Dcom.sun.management.jmxremote.authenticate=true<br>-Dcom.sun.management.jmxremote.ssl=false<br>-Dcom.sun.management.jmxremote.pwd.file= {jmxremote.password}Path<br>-Djava.rmi.server.hostname=192.168.1.50<br>在/usr/lib/jvm/java-8-oracle/jre/lib/management下的jmxremote.access、jmxremote.password。<br>jmxremote.access中存储用户名和对应的权限关系。<br>jmxremote.password中存储用户名密码。<br>注：在jmxremote.password和jmxremote.access的权限为600，所有者rw权限。</p>
 <pre><code>##3、远程连接
