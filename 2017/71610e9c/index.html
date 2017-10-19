@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="总结一下常用的Linux高级命令，避免重复搜索&amp;lt;!- More –&amp;gt; 1、Linux系统相关的高级命令free  1、命令功能  free命令显示系统使用和空闲的内存情况，包括物理内存，交换区内存（Swap），内核缓冲区内存，共享  内存被忽略。  2、命令参数   -b/k/m/g 以Byte/KB/MB/GB为单位显示内存的使用情况   -o 不显示缓冲期调节列   -s&amp;lt;间">
+<meta name="description" content="总结一下常用的Linux高级命令，避免重复搜索">
 <meta name="keywords" content="linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux高级命令总结">
 <meta property="og:url" content="https://shujunzhou.github.io/2017/71610e9c/index.html">
 <meta property="og:site_name" content="Technical Life">
-<meta property="og:description" content="总结一下常用的Linux高级命令，避免重复搜索&amp;lt;!- More –&amp;gt; 1、Linux系统相关的高级命令free  1、命令功能  free命令显示系统使用和空闲的内存情况，包括物理内存，交换区内存（Swap），内核缓冲区内存，共享  内存被忽略。  2、命令参数   -b/k/m/g 以Byte/KB/MB/GB为单位显示内存的使用情况   -o 不显示缓冲期调节列   -s&amp;lt;间">
+<meta property="og:description" content="总结一下常用的Linux高级命令，避免重复搜索">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-19T09:39:27.046Z">
+<meta property="og:updated_time" content="2017-10-19T13:55:08.809Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux高级命令总结">
-<meta name="twitter:description" content="总结一下常用的Linux高级命令，避免重复搜索&amp;lt;!- More –&amp;gt; 1、Linux系统相关的高级命令free  1、命令功能  free命令显示系统使用和空闲的内存情况，包括物理内存，交换区内存（Swap），内核缓冲区内存，共享  内存被忽略。  2、命令参数   -b/k/m/g 以Byte/KB/MB/GB为单位显示内存的使用情况   -o 不显示缓冲期调节列   -s&amp;lt;间">
+<meta name="twitter:description" content="总结一下常用的Linux高级命令，避免重复搜索">
 
 
 
@@ -320,7 +320,7 @@
       
 
       
-        <p>总结一下常用的Linux高级命令，避免重复搜索<br>&lt;!- More –&gt;</p>
+        <p>总结一下常用的Linux高级命令，避免重复搜索<br><a id="more"></a></p>
 <h2 id="1、Linux系统相关的高级命令"><a href="#1、Linux系统相关的高级命令" class="headerlink" title="1、Linux系统相关的高级命令"></a>1、Linux系统相关的高级命令</h2><p>free<br>  1、命令功能<br>  free命令显示系统使用和空闲的内存情况，包括<code>物理内存</code>，<code>交换区内存（Swap）</code>，<code>内核缓冲区内存</code>，共享<br>  内存被忽略。<br>  2、命令参数<br>   -b/k/m/g 以Byte/KB/MB/GB为单位显示内存的使用情况<br>   -o 不显示缓冲期调节列<br>   -s&lt;间隔秒数&gt; 持续观察内存使用状况<br>   -t 显示内存总和列<br>   -V 显示版本信息<br>   3、实例<br>   [root@VM_240_199_centos ~]# free -m<br>              total        used        free      shared  buff/cache   available<br>Mem:            993         439         230          12         323         398<br>Swap:             0           0<br>   total: 总物理内存的大小<br>   used：已使用多大<br>   free：可用有多少<br>   share: 多个进程共享的内存总额<br>   buff/cached：磁盘缓存的大小</p>
 <p>top<br>  1、命令功能<br>  监视系统中不同进程所使用的资源。它提供实时的系统状态信息。显示进程的数据包括<br>  PID、进程属性、优先级、%CPU、%memory等<br>  2、输出解析</p>
 <pre><code>[root@VM_240_199_centos ~]# top
