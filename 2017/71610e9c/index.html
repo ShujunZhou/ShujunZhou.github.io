@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Technical Life">
 <meta property="og:description" content="总结一下常用的Linux高级命令，避免重复搜索">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-19T14:37:20.659Z">
+<meta property="og:updated_time" content="2017-10-26T06:49:25.083Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux高级命令总结">
 <meta name="twitter:description" content="总结一下常用的Linux高级命令，避免重复搜索">
@@ -345,8 +345,7 @@
 <figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">%<span class="selector-tag">Cpu</span>(<span class="selector-tag">s</span>): 99<span class="selector-class">.3</span> <span class="selector-tag">us</span>,  0<span class="selector-class">.7</span> <span class="selector-tag">sy</span>,  0<span class="selector-class">.0</span> <span class="selector-tag">ni</span>,  0<span class="selector-class">.0</span> <span class="selector-tag">id</span>,  0<span class="selector-class">.0</span> <span class="selector-tag">wa</span>,  0<span class="selector-class">.0</span> <span class="selector-tag">hi</span>,  0<span class="selector-class">.0</span> <span class="selector-tag">si</span>,  0<span class="selector-class">.0</span> <span class="selector-tag">st</span></div></pre></td></tr></table></figure>
 <p>Cpu的状态。这里显示了不同模式下的所占CPU时间的百分比。这些不同的CPU时间表示：<br>us,user:运行（未调整优先级的）用户进程的CPU时间<br>sy,system:运行内核进程的CPU时间<br>ni,niced：运行已调整优先级的用户进程的CPU时间<br>wa, IO wait:用于等待IO完成的CPU时间<br>hi：处理硬件中断的CPU时间<br>si：处理软件中断的CPU时间<br>st: 这个虚拟机被hypervisor偷取的时间</p>
 <figure class="highlight tap"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">KiB Mem : <span class="number"> 1016904 </span>total,  <span class="number"> 235064 </span>free,  <span class="number"> 449544 </span>used,  <span class="number"> 332296 </span>buff/cache</div><div class="line">KiB Swap:       <span class="number"> 0 </span>total,       <span class="number"> 0 </span>free,       <span class="number"> 0 </span>used.  <span class="number"> 408672 </span>avail Mem</div></pre></td></tr></table></figure>
-<p>显示内存的使用率，有点像free命令。第一行是物理内存使用，第二行显示虚拟内存使用（交换空间）<br>物理内存显示如下：全部可用内存、已使用内存、空闲内存、缓冲内存。交换部分显示一致</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">PID<span class="built_in"> USER </span>     PR  NI    VIRT    RES    SHR S %CPU %MEM     TIME+ COMMAND</div></pre></td></tr></table></figure>
+<p></p><p><br>  显示内存的使用率，有点像free命令。第一行是物理内存使用，第二行显示虚拟内存使用（交换空间）<br>  物理内存显示如下：全部可用内存、已使用内存、空闲内存、缓冲内存。交换部分显示一致<br></p><br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">PID<span class="built_in"> USER </span>     PR  NI    VIRT    RES    SHR S %CPU %MEM     TIME+ COMMAND</div></pre></td></tr></table></figure><p></p>
 <p>PID:进程ID，进程的唯一标识符<br>USER:进程所有者的实际用户名<br>PR:进程调度优先级。这个字段的一些值是’rt’。意味这这些进程运行在实时态<br>NI:进程的nice值（优先级）。越小的值意味着越高的优先级<br>VIRT:进程使用的虚拟内存<br>RES:驻留内存大小。<br>SHR:是进程使用的共享内存<br>S:是进程的状态，可选值：D - 不可中断的睡眠态；R - 运行态；S - 睡眠态；T - 被跟踪或已停止<br>Z - 僵尸态<br>%CPU: 自从上一次更新时到现在任务所使用的CPU时间的百分比<br>%MEM: 进程使用的可用物理内存百分比<br>TIME+: 任务启动后到现在所使用的全部CPU时间，精确到百分之一秒<br>COMMAND：运行进程所使用的命令</p>
 
       
